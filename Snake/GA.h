@@ -32,8 +32,8 @@ public:
     void changeDrivers();
     void getDistance();
     void compareDistance();
-    Monkey* breadMonkeys( int runN);
-    Monkey* sortByDistance(Monkey *seats);
+    void breadMonkeys( int runN);
+    void sortByDistance();
     float bestDistance;
     Monkey* bestDriver;
     int bestGeneration;

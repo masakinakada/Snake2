@@ -63,15 +63,11 @@ void GA::pickDrivers(){
         shuffleCard();
         seats[i] = monkeys[card[i]];
         //seats[i]->set_number(monkeys[i]->get_number());
-        cout<<card[i]<<endl;
+        cout<<"Monkey #" <<card[i]<<endl;
        
     }
     currentSeat = 0;
-    
-    cout<<"Next drivers are"<<endl;
-    for(int i=0; i<SEATS_NUM;i++){
-        cout<<"Moneky # " <<seats[i]->get_number()<<endl;
-    }
+    cout<<"First driver is Monkey #"<<seats[0]->get_number()<<endl;
 }
 
 void GA::iterate(float time, float dt)
@@ -80,17 +76,11 @@ void GA::iterate(float time, float dt)
     accumulated_time+=dt;
     seats[currentSeat]->control_robot(*gaCreature, time, dt, 1.0);
     
-    int driver_num = seats[currentSeat]->get_number();
-    float driven_distance = seats[currentSeat]->get_distance();
-    
-    cout << "Seat is # "<< driver_num <<endl;
-    cout << "distance is " << driven_distance << endl;
+    // cout << "distance is " << driven_distance << endl;
     if(accumulated_time>10.0)
     {
         changeDrivers();
         accumulated_time = 0.0;
-        cout << "Chaning Driver to the next monkey....." << endl;
-        cout << "next driver is monkey # " <<seats[currentSeat]->get_number()<<endl;
     }
 }
 
@@ -106,49 +96,48 @@ void GA::changeDrivers()
         bestRun = runCount;
     }
     
-    //get the creature back to the origin and let the new driver to handle the control
     gaCreature->to_center();
-    currentSeat++;
     
-    if(currentSeat>SEATS_NUM)
+    if(currentSeat>SEATS_NUM-2)
     {
         cout << "breading monkeys, and generate new generation" <<endl;
         breadMonkeys(runCount);
         pickDrivers();
         runCount++;
-    }
+    } else{
+        cout << "Chaning Driver to the next monkey....." << endl;
     
-    
-    
+        currentSeat++;
+        //get the creature back to the origin and let the new driver to handle the control
+        int driver_num = seats[currentSeat]->get_number();
+        cout << "next driver is monkey # "<< driver_num <<endl;
+  
+    }    
 }
 
-Monkey* GA::sortByDistance(Monkey *seats)
+void GA::sortByDistance()
 {
     int max = SEATS_NUM;
     for(int i = 0; i < max; i++)
     {
         for(int j = 0; j < max; j++)
         {
-            if(seats[i].get_distance() < seats[j].get_distance())
+            if(seats[i]->get_distance() < seats[j]->get_distance())
             {
-                Monkey temp = seats[i];
+                Monkey* temp = seats[i];
                 seats[i] = seats[j];
                 seats[j] = temp;
             }
         }
     }
-    
-    return seats;
-    
 }
 
-Monkey* GA::breadMonkeys(int runN)
+void GA::breadMonkeys(int runN)
 {
-    Monkey *sortedSeats = sortByDistance(*seats);
-    sortedSeats[0].bread_monkeys(sortedSeats[1], *seats[2], runN);
-    sortedSeats[1].bread_monkeys(sortedSeats[0], *seats[3], runN);
+    sortByDistance();
+    seats[0]->bread_monkeys(*seats[1], *seats[2], runN);
+    seats[1]->bread_monkeys(*seats[0], *seats[3], runN);
     ;
     seats[2]->mutate_genome(runN, runN);
     seats[3]->mutate_genome(runN, runN);
-    return sortedSeats;
 }

@@ -95,10 +95,9 @@ void Creature::init(World *myWorld){
 float Creature::getDistance()
 {
     curPos = cube1->m_Center;
-    Eigen::Vector3f dis = curPos - prePos;
+    Eigen::Vector3f dis = curPos;
     float distance = dis.norm();
     
-    prePos = curPos;
     return distance;
 }
 
