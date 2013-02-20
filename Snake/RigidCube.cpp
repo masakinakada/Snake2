@@ -167,7 +167,7 @@ void RigidCube::HandleCollision(){
 	Eigen::Vector3f collision_surface_normal;
 	Eigen::Vector3f edge_velocity;
 	double IMPULSE;
-	double epsilon = 0.8;//the impulse coeeficient between 0~1
+	double epsilon = 0.0;//the impulse coeeficient between 0~1
 	Eigen::Vector3f temp;
 	Eigen::Vector3f temp_r;
 	Eigen::Matrix3f temp_I;

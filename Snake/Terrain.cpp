@@ -36,7 +36,7 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
 	}
 
 	else if(a_type == TERRAIN_RANDOM){
-		double hill_height_max = 10;
+		double hill_height_max = 30;
 		double hill_center_x, hill_center_z, hill_height, hill_narrowness_x, hill_narrowness_z;
 		double dev_x, dev_z;
 
@@ -45,8 +45,8 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
 			hill_center_x = (Util::getRand()-0.5)*a_size_x;
 			hill_center_z = (Util::getRand()-0.5)*a_size_z;
 			hill_height = Util::getRand()*(hill_height_max - 5) + 5;
-			hill_narrowness_x = Util::getRand()*10 + 5; //20~40
-			hill_narrowness_z = Util::getRand()*10 + 5; //20~40
+			hill_narrowness_x = Util::getRand()*30 + 10; //10~40
+			hill_narrowness_z = Util::getRand()*30 + 10; //10~40
 
 			//add the hill to current height map
 			for(int ix = 0; ix < (a_res_x+1); ix++)

@@ -30,7 +30,7 @@ void initScene(){
     
     std::cout<<"Setting up the World..."<<std::endl;
     
-	myTerrain = new Terrain(Eigen::Vector2f(1000,1000), Eigen::Vector2i(100,100), 100, TERRAIN_RANDOM);
+	myTerrain = new Terrain(Eigen::Vector2f(100,100), Eigen::Vector2i(100,100), 100, TERRAIN_FLAT);
     
 	reinitScene();
     
@@ -235,7 +235,10 @@ void idleCallback(){
 
 int main (int argc, char ** argv){
     // init GLUT
-    std::srand ( unsigned ( std::time(0) ) );
+#ifdef _APPLE_
+ std::srand ( unsigned ( std::time(0) ) );
+#endif // _APPLE
+
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     
@@ -249,7 +252,9 @@ int main (int argc, char ** argv){
     glutMotionFunc(motionCallback);
 	glutPassiveMotionFunc(cursorCallback);
     glutDisplayFunc(displayCallback);
-	//glewInit();
+#ifndef _APPLE_
+	glewInit();
+#endif
     initScene();
     glutMainLoop();
     

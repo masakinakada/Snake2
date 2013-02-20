@@ -37,7 +37,7 @@ void Creature::set_joint_velocity(int muscle_num, int horizontal_torque, int ver
 
 void Creature::init(World *myWorld){
     Eigen::Vector3i deform_res(5,5,5);double youngs_modulus = 2000;
-	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(2,2,2); double deform_length = 2;
+	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(0.5,2,2); double deform_length = 2;
 	std::vector<Node*> temp_nodes;
     
     //create the first rigid skeleton
@@ -113,7 +113,7 @@ void Creature::destroyCreature()
 void Creature::to_center(){
 
     Eigen::Vector3i deform_res(5,5,5);double youngs_modulus = 2000;
-	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(2,2,2); double deform_length = 2;
+	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(0.5,2,2); double deform_length = 2;
 	std::vector<Node*> temp_nodes;
     
 	cube1->Init(1.0, Eigen::Vector3f(0,INITIAL_POS,0), rigid_size, Eigen::Vector3f(1,0,0));
