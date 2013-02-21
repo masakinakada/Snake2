@@ -46,7 +46,7 @@ int* GA::shuffleCard()
    
     for(int i=0;i<MONKEY_NUM; i++)
     {
-        int target = iRand(0, MONKEY_NUM);
+        int target = iRand(0, MONKEY_NUM)-1;
         int temp = card[i]; card[i] = card[target]; card[target] = temp;
     }
     return card;
