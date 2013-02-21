@@ -252,7 +252,7 @@ int main (int argc, char ** argv){
     glutMotionFunc(motionCallback);
 	glutPassiveMotionFunc(cursorCallback);
     glutDisplayFunc(displayCallback);
-#ifndef _APPLE_
+#ifndef __APPLE__
 	glewInit();
 #endif
     initScene();
