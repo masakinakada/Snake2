@@ -28,7 +28,7 @@ Camera  Pentax;
 Light Lumia;
 World * myWorld = NULL;
 Terrain* myTerrain = NULL;
-Drawer* myDrawer;
+Drawer* myDrawer = NULL;
 Creature* myCreature = NULL;
 GA* ga = NULL;
 

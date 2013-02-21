@@ -17,7 +17,6 @@ Creature::Creature(World *myWorld)
 }
 
 Creature::~Creature(){
-    //destroyCreature();
 }
 
 void Creature::set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha)
@@ -103,11 +102,6 @@ float Creature::getDistance()
 
 void Creature::destroyCreature()
 {
-    delete cube1;
-    delete cube2;
-    delete cube3;
-    delete deform1;
-    delete deform2;
 }
 
 void Creature::to_center(){
