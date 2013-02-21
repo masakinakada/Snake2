@@ -75,7 +75,7 @@ public:
 	 void Output2File(std::ofstream* filestream);
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     
-    void muscleController(int horizontal_torque, int verticle_torque, float dt, float alpha);
+    void muscleController(int horizontal_torque, int verticle_torque, float dt, float alpha, int segment_num);
 
 private:
     void UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type);

@@ -35,7 +35,6 @@ public:
     Eigen::Vector3f prePos;
     void destroyCreature();
     
-    
 };
 
 

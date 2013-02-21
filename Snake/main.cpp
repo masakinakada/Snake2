@@ -235,7 +235,7 @@ void idleCallback(){
 
 int main (int argc, char ** argv){
     // init GLUT
-#ifdef _APPLE_
+#ifdef __APPLE__
  std::srand ( unsigned ( std::time(0) ) );
 #endif // _APPLE
 

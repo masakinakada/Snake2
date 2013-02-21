@@ -45,16 +45,26 @@ int Genome::iRand(int floor, int ceiling)
 
 void Genome::randomize()
 {
+    static int monkey_number = 0;
   
+    cout<<"Genome for monkey #" << monkey_number<<endl;
     //for phase and velocity of sinosoid
     for (int i=0; i<MUSCLE_NUM; i++) {
         genomeData[i] = fRand(1.0, 2.0);
         genomeData[i+MUSCLE_NUM] = fRand(3.5, 6.3);
-        cout<<"new genome Data " << genomeData[i]<<","<<genomeData[i+MUSCLE_NUM]<<endl;
+        cout<<"new genome Data"<<"(w"<<i<<") =" << genomeData[i]<< endl;
+        cout<<"new genome Data"<<"(phase"<<i<<") =" << genomeData[i+MUSCLE_NUM]<< endl;
        
     }
     //this is for amplitude of sinosoid
     genomeData[2*MUSCLE_NUM] = fRand(-4.0, 4.0);
+     cout<<"new genome Data"<<"(amplitude) =" << genomeData[2*MUSCLE_NUM]<< endl;
+    
+    cout<<"Control sinosoidal function for Monkey #"<<monkey_number<<" is "<<endl;
+    cout<<"First segment:"<<genomeData[2*MUSCLE_NUM] <<" * sin("<<genomeData[0]<<"*t + "<<genomeData[1]<<")"<<endl;
+    cout<<"Second segment:"<<genomeData[2*MUSCLE_NUM] <<" * sin("<<genomeData[2]<<"*t + "<<genomeData[3]<<")"<<endl;
+    
+    monkey_number++;
 }
 
 int Genome::calculate_torque(int k, float time)
@@ -79,7 +89,7 @@ void Genome::mutate(int num, int generation)
     else if(n<MUSCLE_NUM*2) genomeData[n] = fRand(3.5, 6.3);
     else genomeData[MUSCLE_NUM*2] = fRand(-4.0, 4.0);
     
-    cout<<"gene " << n << "mutated for genome " << num <<" of generation" << generation << endl;
+    cout<<"gene # " << n << "mutated for Monkey #" << num <<" of generation " << generation << endl;
 }
 
 void Genome::crossover(Genome parent1, Genome parent2)

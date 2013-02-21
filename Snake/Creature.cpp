@@ -23,10 +23,10 @@ void Creature::set_joint_velocity(int muscle_num, int horizontal_torque, int ver
 {
     switch (muscle_num) {
         case 0:
-            deform1->muscleController(horizontal_torque, verticle_torque, dt, alpha);
+            deform1->muscleController(horizontal_torque, verticle_torque, dt, alpha, 0);
             break;
         case 1:
-            deform2->muscleController(horizontal_torque, verticle_torque, dt, alpha);
+            deform2->muscleController(horizontal_torque, verticle_torque, dt, alpha, 1);
             break;
         default:
             break;

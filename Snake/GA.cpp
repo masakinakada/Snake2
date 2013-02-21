@@ -23,13 +23,9 @@ void GA::init(){
         monkeys[i] = new Monkey;
         monkeys[i]->set_number(i);
     }
-    /*
-    for(int i=0;i<SEATS_NUM;i++){
-        seats[i] = new Monkey;
-    }*/
+
     pickDrivers();
     bestDistance = 0.0;
-    bestDriver = new Monkey;
     bestGeneration = 1;
     bestRun = 1;
     runCount = 1;
@@ -76,11 +72,13 @@ void GA::iterate(float time, float dt)
     accumulated_time+=dt;
     seats[currentSeat]->control_robot(*gaCreature, time, dt, 1.0);
     
+    
     // cout << "distance is " << driven_distance << endl;
     if(accumulated_time>10.0)
     {
         changeDrivers();
         accumulated_time = 0.0;
+
     }
 }
 
@@ -88,7 +86,8 @@ void GA::iterate(float time, float dt)
 void GA::changeDrivers()
 {
     seats[currentSeat]->set_distance(gaCreature->getDistance());
-   
+    cout<<"Monkey #"<<seats[currentSeat]->get_number()<<" moved " <<seats[currentSeat]->get_distance()<<endl;
+    
     if(seats[currentSeat]->get_distance()>bestDistance){
         bestDistance = seats[currentSeat]->get_distance();
         bestDriver = seats[currentSeat];
@@ -122,7 +121,7 @@ void GA::sortByDistance()
     {
         for(int j = 0; j < max; j++)
         {
-            if(seats[i]->get_distance() < seats[j]->get_distance())
+            if(seats[i]->get_distance() > seats[j]->get_distance())
             {
                 Monkey* temp = seats[i];
                 seats[i] = seats[j];
@@ -130,14 +129,25 @@ void GA::sortByDistance()
             }
         }
     }
+    
+    cout<<"sorted order is"<<endl;
+    for(int i=0;i<max;i++)
+    {
+        cout<<"Monkey #" <<seats[i]->get_number()<<endl;;
+    }
 }
 
 void GA::breadMonkeys(int runN)
 {
     sortByDistance();
+    cout <<"bread Monkey#"<<seats[0]->get_number()<<" and Monkey #" <<seats[1]->get_number()<<", set the breaded genome to Monkey #"<< seats[2]->get_number()<<endl;
+    cout <<"bread Monkey#"<<seats[1]->get_number()<<" and Monkey #" <<seats[0]->get_number()<<", set the breaded genome to Monkey #"<< seats[3]->get_number()<<endl;
     seats[0]->bread_monkeys(*seats[1], *seats[2], runN);
     seats[1]->bread_monkeys(*seats[0], *seats[3], runN);
     ;
-    seats[2]->mutate_genome(runN, runN);
-    seats[3]->mutate_genome(runN, runN);
+    
+    cout<<"Mutate Monkey #" <<seats[2]->get_number()<<endl;
+    cout<<"Mutate Monkey #" <<seats[3]->get_number()<<endl;
+    seats[2]->mutate_genome(seats[2]->get_number(), runN);
+    seats[3]->mutate_genome(seats[3]->get_number(), runN);
 }
