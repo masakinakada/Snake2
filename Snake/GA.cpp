@@ -26,9 +26,9 @@ void GA::init(){
 
     pickDrivers();
     bestDistance = 0.0;
-    bestGeneration = 1;
-    bestRun = 1;
-    runCount = 1;
+    bestGeneration = 0;
+    bestRun = 0;
+    runCount = 0;
 }
 
 int GA::iRand(int floor, int ceiling)
@@ -46,7 +46,7 @@ int* GA::shuffleCard()
    
     for(int i=0;i<MONKEY_NUM; i++)
     {
-        int target = iRand(0, MONKEY_NUM)-1;
+        int target = iRand(0, MONKEY_NUM-1);
         int temp = card[i]; card[i] = card[target]; card[target] = temp;
     }
     return card;
@@ -55,15 +55,15 @@ int* GA::shuffleCard()
 void GA::pickDrivers(){
     
     cout << "selected Monkeys are"<<endl;
+    shuffleCard();
     for(int i=0;i<SEATS_NUM;i++){
-        shuffleCard();
         seats[i] = monkeys[card[i]];
         //seats[i]->set_number(monkeys[i]->get_number());
         cout<<"Monkey #" <<card[i]<<endl;
        
     }
     currentSeat = 0;
-    cout<<"First driver is Monkey #"<<seats[0]->get_number()<<endl;
+    cout<<"First driver is Monkey #"<<seats[currentSeat]->get_number()<<endl;
 }
 
 void GA::iterate(float time, float dt)
@@ -93,6 +93,11 @@ void GA::changeDrivers()
         bestDriver = seats[currentSeat];
         bestGeneration = seats[currentSeat]->get_generation();
         bestRun = runCount;
+        
+        cout<<"new Best Distance:" <<bestDistance<<endl;
+        cout<<"new Best Driver: Monkey #"<<bestDriver->get_number()<<endl;
+        cout<<"new Best Generation: "<<bestGeneration<<endl;
+        cout<<"new Best Run count: "<<bestRun<<endl;
     }
     
     gaCreature->to_center();
@@ -102,7 +107,7 @@ void GA::changeDrivers()
         cout << "breading monkeys, and generate new generation" <<endl;
         breadMonkeys(runCount);
         pickDrivers();
-        runCount++;
+        cout<<"Run Count: "<<runCount++<<endl;
     } else{
         cout << "Chaning Driver to the next monkey....." << endl;
     
@@ -110,8 +115,7 @@ void GA::changeDrivers()
         //get the creature back to the origin and let the new driver to handle the control
         int driver_num = seats[currentSeat]->get_number();
         cout << "next driver is monkey # "<< driver_num <<endl;
-  
-    }    
+    }
 }
 
 void GA::sortByDistance()

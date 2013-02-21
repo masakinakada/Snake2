@@ -258,13 +258,13 @@ void Deformable3D::muscleController(int horizontal_torque, int verticle_torque ,
     if(horizontal_torque==2){
         UpdateRestShape(dt, alpha, SHRINK_RIGHT);
         //m_accum_shrink_left -= alpha*dt;
-        std::cout<<"Segment #"<<segment_num<<": Shrink Right"<<std::endl;
+        //std::cout<<"Segment #"<<segment_num<<": Shrink Right"<<std::endl;
     }
     else if(horizontal_torque==1)
     {
         UpdateRestShape(dt, alpha, RELEASE_RIGHT);
         //m_accum_shrink_right -= alpha*dt;
-        std::cout<<"Segment #"<<segment_num<<": Release Right"<<std::endl;
+        //std::cout<<"Segment #"<<segment_num<<": Release Right"<<std::endl;
       
     }
     else if(horizontal_torque == -1)
@@ -272,13 +272,13 @@ void Deformable3D::muscleController(int horizontal_torque, int verticle_torque ,
        UpdateRestShape(dt, alpha, SHRINK_LEFT);
        //m_accum_shrink_right -= alpha*dt;
         
-        std::cout<<"Segment #"<<segment_num<<": Shrink Left"<<std::endl;
+        //std::cout<<"Segment #"<<segment_num<<": Shrink Left"<<std::endl;
     }
     else if(horizontal_torque== -2){
         UpdateRestShape(dt, alpha, RELEASE_LEFT);
         //m_accum_shrink_left -= alpha*dt;
         
-        std::cout<<"Segment #"<<segment_num<<": Release Left"<<std::endl;
+        //std::cout<<"Segment #"<<segment_num<<": Release Left"<<std::endl;
     }
 
     

@@ -24,24 +24,27 @@ public:
     void init();
     void pickDrivers();
     int currentSeat;
-    Monkey* monkeys[15];
-    Monkey* seats[SEATS_NUM];
-    Creature* gaCreature;
-    World* gaWorld;
     void iterate(float time, float dt);
     void changeDrivers();
     void getDistance();
     void compareDistance();
     void breadMonkeys( int runN);
     void sortByDistance();
+    int iRand(int floor, int ceiling);
+    int* shuffleCard();
+    
+private:
+    Monkey* monkeys[15];
+    Monkey* seats[SEATS_NUM];
+    Creature* gaCreature;
+    World* gaWorld;
+    int card[MONKEY_NUM];
     float bestDistance;
     Monkey* bestDriver;
     int bestGeneration;
     int bestRun;
     int runCount;
-    int iRand(int floor, int ceiling);
-    int* shuffleCard();
-    int card[MONKEY_NUM];
+
 };
 
 #endif

@@ -15,8 +15,6 @@ class Monkey
 {
 public:
     Monkey();
-    Genome *genome;
-    
     void set_number(int n);
     int get_number();
     void increase_generation();
@@ -36,6 +34,7 @@ private:
     
     float distanceTraveled;
     int number, generation, runNumber;
+    Genome *genome;
 };
 
 

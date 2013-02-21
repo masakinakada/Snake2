@@ -21,11 +21,13 @@ public:
     Creature(World *myWorld);
     ~Creature();
     void init(World *myWorld);
-    struct links get_root();
     void to_center();
     void set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha);
     void deactivate_friction();
     float getDistance();
+    void destroyCreature();
+    
+private:
     RigidCube* cube1;
     RigidCube* cube2;
     RigidCube* cube3;
@@ -33,7 +35,6 @@ public:
     Deformable3D* deform2;
     Eigen::Vector3f curPos;
     Eigen::Vector3f prePos;
-    void destroyCreature();
     
 };
 

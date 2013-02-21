@@ -85,7 +85,7 @@ int Genome::calculate_torque(int k, float time)
 void Genome::mutate(int num, int generation)
 {
     int n = iRand(0,NUMBER_OF_GENE);
-    if(n<MUSCLE_NUM) genomeData[n] = fRand(1.0, 5.0);
+    if(n<MUSCLE_NUM) genomeData[n] = fRand(1.0, 2.0);
     else if(n<MUSCLE_NUM*2) genomeData[n] = fRand(3.5, 6.3);
     else genomeData[MUSCLE_NUM*2] = fRand(-4.0, 4.0);
     
@@ -95,7 +95,7 @@ void Genome::mutate(int num, int generation)
 void Genome::crossover(Genome parent1, Genome parent2)
 {
     int n, crossoverPoint;
-    crossoverPoint = iRand(0, MUSCLE_NUM*2);
+    crossoverPoint = iRand(0, MUSCLE_NUM*2-1);
     
     if(crossoverPoint==0){
         Genome tmp;

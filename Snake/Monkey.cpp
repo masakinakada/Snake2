@@ -12,6 +12,7 @@
 
 Monkey::Monkey()
 {
+    generation=0;
     init();
 }
 
@@ -72,9 +73,6 @@ void Monkey::mutate_genome(int num, int generation)
 }
 
 void Monkey::bread_monkeys(Monkey otherMonkey, Monkey child, int runN){
-    int otherNumber, childNumber;
-    otherNumber = otherMonkey.get_number();
-    childNumber = child.get_number();
     
     child.get_genome().crossover(otherMonkey.get_genome(), get_genome());
     child.increase_generation();
