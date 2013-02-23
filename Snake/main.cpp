@@ -46,8 +46,10 @@ void reinitScene(){
 	myWorld->Clear();//clear everything
 	myWorld->Add_Object(myTerrain);//add back the terrain
     
-    myCreature = new Creature(myWorld);
-    ga = new GA(myCreature, myWorld);
+    mySnake = new Snake(10);
+	myWorld->Add_Object(mySnake);
+
+    ga = new GA(mySnake, myWorld);
     
     TIME_LAST = TM.GetElapsedTime() ;
 	DTIME = 0.0;

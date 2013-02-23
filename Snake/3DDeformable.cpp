@@ -72,7 +72,7 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
 
 void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 	
-	double threshold = 0.1;
+	double threshold = 0.2;
 	//experiment 
 	switch(type){
 	case SHRINK_LEFT:
@@ -253,46 +253,6 @@ void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 }
 
 
-void Deformable3D::muscleController(int horizontal_torque, int verticle_torque , float dt, float alpha, int segment_num)
-{
-    if(horizontal_torque==2){
-        UpdateRestShape(dt, alpha, SHRINK_RIGHT);
-        //m_accum_shrink_left -= alpha*dt;
-        std::cout<<"Segment #"<<segment_num<<": Shrink Right"<<std::endl;
-    }
-    else if(horizontal_torque==1)
-    {
-        UpdateRestShape(dt, alpha, RELEASE_RIGHT);
-        //m_accum_shrink_right -= alpha*dt;
-        std::cout<<"Segment #"<<segment_num<<": Release Right"<<std::endl;
-      
-    }
-    else if(horizontal_torque == -1)
-    {
-       UpdateRestShape(dt, alpha, SHRINK_LEFT);
-       //m_accum_shrink_right -= alpha*dt;
-        
-        std::cout<<"Segment #"<<segment_num<<": Shrink Left"<<std::endl;
-    }
-    else if(horizontal_torque== -2){
-        UpdateRestShape(dt, alpha, RELEASE_LEFT);
-        //m_accum_shrink_left -= alpha*dt;
-        
-        std::cout<<"Segment #"<<segment_num<<": Release Left"<<std::endl;
-    }
-
-    
-    if(verticle_torque==1)
-    {
-        UpdateRestShape(dt, alpha, SHRINK_UP);
-        m_accum_shrink_down -= alpha*dt;
-    }
-    else if(verticle_torque ==-1)
-    {
-        UpdateRestShape(dt, alpha, SHRINK_DOWN);
-        m_accum_shrink_up -= alpha*dt;
-    }
-}
 
 void Deformable3D::InitDraw(){
     
