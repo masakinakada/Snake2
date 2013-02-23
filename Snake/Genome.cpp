@@ -16,8 +16,6 @@
 #include "Genome.h"
 #include <array>
 
-//MUSCLE_NUM * 2 + 1
-#define NUMBER_OF_GENE 5
 
 
 using namespace std;
@@ -61,8 +59,8 @@ void Genome::randomize()
      cout<<"new genome Data"<<"(amplitude) =" << genomeData[2*MUSCLE_NUM]<< endl;
     
     cout<<"Control sinosoidal function for Monkey #"<<monkey_number<<" is "<<endl;
-    cout<<"First segment:"<<genomeData[2*MUSCLE_NUM] <<" * sin("<<genomeData[0]<<"*t + "<<genomeData[1]<<")"<<endl;
-    cout<<"Second segment:"<<genomeData[2*MUSCLE_NUM] <<" * sin("<<genomeData[2]<<"*t + "<<genomeData[3]<<")"<<endl;
+    cout<<"First segment:" <<" sin("<<genomeData[2*MUSCLE_NUM] <<"*("<<"t + " <<genomeData[2] <<")) - "<<genomeData[0]<<endl;
+    cout<<"Second segment:"<<" sin("<<genomeData[2*MUSCLE_NUM] <<"*("<<"t + " <<genomeData[3] <<")) - "<<genomeData[1]<<endl;
     
     monkey_number++;
 }
@@ -84,7 +82,7 @@ int Genome::calculate_torque(int k, float time)
 
 void Genome::mutate(int num, int generation)
 {
-    int n = iRand(0,NUMBER_OF_GENE);
+    int n = iRand(0,2*MUSCLE_NUM);
     if(n<MUSCLE_NUM) genomeData[n] = fRand(1.0, 2.0);
     else if(n<MUSCLE_NUM*2) genomeData[n] = fRand(3.5, 6.3);
     else genomeData[MUSCLE_NUM*2] = fRand(-4.0, 4.0);

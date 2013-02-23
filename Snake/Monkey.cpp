@@ -8,7 +8,6 @@
 
 #include "Monkey.h"
 #define SPEED_K 1
-#define MUSCLE_NUM 2
 
 Monkey::Monkey()
 {
