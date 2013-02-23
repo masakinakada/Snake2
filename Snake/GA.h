@@ -24,13 +24,7 @@ public:
     void init();
     void pickDrivers();
     int currentSeat;
-<<<<<<< HEAD
-=======
-    Monkey* monkeys[15];
-    Monkey* seats[SEATS_NUM];
-    Snake* gaSnake;
-    World* gaWorld;
->>>>>>> 6ff2e95d2e84aa57e0fdf32070fa8b66098d0561
+   
     void iterate(float time, float dt);
     void changeDrivers();
     void getDistance();
@@ -43,7 +37,7 @@ public:
 private:
     Monkey* monkeys[15];
     Monkey* seats[SEATS_NUM];
-    Creature* gaCreature;
+    Snake* gaSnake;
     World* gaWorld;
     int card[MONKEY_NUM];
     float bestDistance;

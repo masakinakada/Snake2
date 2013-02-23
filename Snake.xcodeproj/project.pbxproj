@@ -26,7 +26,7 @@
 		B179F21B16C8DC60009A361C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B179F21A16C8DC60009A361C /* OpenGL.framework */; };
 		B179F21D16C8DC6F009A361C /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B179F21C16C8DC6F009A361C /* GLUT.framework */; };
 		B179F21F16C8DC7C009A361C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B179F21E16C8DC7C009A361C /* GLKit.framework */; };
-		B1CD976216CC080D00CED4D6 /* Creature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1CD975C16CC080D00CED4D6 /* Creature.cpp */; };
+		B17C5FDC16D8ACCA002E4220 /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B17C5FDA16D8ACCA002E4220 /* Snake.cpp */; };
 		B1CD976316CC080D00CED4D6 /* Genome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1CD975E16CC080D00CED4D6 /* Genome.cpp */; };
 		B1CD976416CC080D00CED4D6 /* Monkey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1CD976016CC080D00CED4D6 /* Monkey.cpp */; };
 		B1CD976716CC118D00CED4D6 /* GA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1CD976616CC118D00CED4D6 /* GA.cpp */; };
@@ -323,8 +323,8 @@
 		B179F21A16C8DC60009A361C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		B179F21C16C8DC6F009A361C /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		B179F21E16C8DC7C009A361C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		B1CD975C16CC080D00CED4D6 /* Creature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Creature.cpp; sourceTree = "<group>"; };
-		B1CD975D16CC080D00CED4D6 /* Creature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Creature.h; sourceTree = "<group>"; };
+		B17C5FDA16D8ACCA002E4220 /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
+		B17C5FDB16D8ACCA002E4220 /* Snake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snake.h; sourceTree = "<group>"; };
 		B1CD975E16CC080D00CED4D6 /* Genome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Genome.cpp; sourceTree = "<group>"; };
 		B1CD975F16CC080D00CED4D6 /* Genome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Genome.h; sourceTree = "<group>"; };
 		B1CD976016CC080D00CED4D6 /* Monkey.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Monkey.cpp; sourceTree = "<group>"; };
@@ -352,8 +352,8 @@
 		B130B15F16C98E170013A5DD /* GA */ = {
 			isa = PBXGroup;
 			children = (
-				B1CD975C16CC080D00CED4D6 /* Creature.cpp */,
-				B1CD975D16CC080D00CED4D6 /* Creature.h */,
+				B17C5FDA16D8ACCA002E4220 /* Snake.cpp */,
+				B17C5FDB16D8ACCA002E4220 /* Snake.h */,
 				B1CD976016CC080D00CED4D6 /* Monkey.cpp */,
 				B1CD976116CC080D00CED4D6 /* Monkey.h */,
 				B1CD975E16CC080D00CED4D6 /* Genome.cpp */,
@@ -944,10 +944,10 @@
 				B179F21516C8DA4A009A361C /* Timer.cpp in Sources */,
 				B179F21616C8DA4A009A361C /* Utility.cpp in Sources */,
 				B179F21716C8DA4A009A361C /* World.cpp in Sources */,
-				B1CD976216CC080D00CED4D6 /* Creature.cpp in Sources */,
 				B1CD976316CC080D00CED4D6 /* Genome.cpp in Sources */,
 				B1CD976416CC080D00CED4D6 /* Monkey.cpp in Sources */,
 				B1CD976716CC118D00CED4D6 /* GA.cpp in Sources */,
+				B17C5FDC16D8ACCA002E4220 /* Snake.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
