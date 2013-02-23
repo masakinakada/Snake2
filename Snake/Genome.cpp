@@ -49,7 +49,7 @@ void Genome::randomize()
     //for phase and velocity of sinosoid
     for (int i=0; i<MUSCLE_NUM; i++) {
         genomeData[i] = fRand(-1.5, 1.5);
-        genomeData[i+MUSCLE_NUM] = fRand(1.5, 6.3);
+        genomeData[i+MUSCLE_NUM] = fRand(-6.3, 6.3);
         cout<<"new genome Data"<<"(w"<<i<<") =" << genomeData[i]<< endl;
         cout<<"new genome Data"<<"(phase"<<i<<") =" << genomeData[i+MUSCLE_NUM]<< endl;
        
@@ -59,9 +59,12 @@ void Genome::randomize()
      cout<<"new genome Data"<<"(amplitude) =" << genomeData[2*MUSCLE_NUM]<< endl;
     
     cout<<"Control sinosoidal function for Monkey #"<<monkey_number<<" is "<<endl;
-    cout<<"First segment:" <<" sin("<<genomeData[2*MUSCLE_NUM] <<"*("<<"t + " <<genomeData[2] <<")) - "<<genomeData[0]<<endl;
-    cout<<"Second segment:"<<" sin("<<genomeData[2*MUSCLE_NUM] <<"*("<<"t + " <<genomeData[3] <<")) - "<<genomeData[1]<<endl;
-    
+    for(int i=0;i<MUSCLE_NUM;i++)
+    {
+        
+        cout<<i<<"th segment:" <<" sin("<<genomeData[2*MUSCLE_NUM] <<"*("<<"t + " <<genomeData[i+MUSCLE_NUM] <<")) - "<<genomeData[i]<<endl;
+    }
+
     monkey_number++;
 }
 
@@ -84,7 +87,7 @@ void Genome::mutate(int num, int generation)
 {
     int n = iRand(0,2*MUSCLE_NUM);
     if(n<MUSCLE_NUM) genomeData[n] = fRand(-1.5, 1.5);
-    else if(n<MUSCLE_NUM*2) genomeData[n] = fRand(1.5, 6.3);
+    else if(n<MUSCLE_NUM*2) genomeData[n] = fRand(-6.3, 6.3);
     else genomeData[MUSCLE_NUM*2] = fRand(-4.0, 4.0);
     
     cout<<"gene # " << n << "mutated for Monkey #" << num <<" of generation " << generation << endl;

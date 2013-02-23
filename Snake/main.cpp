@@ -46,7 +46,7 @@ void reinitScene(){
 	myWorld->Clear();//clear everything
 	myWorld->Add_Object(myTerrain);//add back the terrain
     
-    mySnake = new Snake(10);
+    mySnake = new Snake(MUSCLE_NUM+1);
 	myWorld->Add_Object(mySnake);
 
     ga = new GA(mySnake, myWorld);
