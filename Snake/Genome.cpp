@@ -14,7 +14,7 @@
 #include <cmath>
 #include <iostream>
 #include "Genome.h"
-#include <array>
+//#include <array>
 
 
 
