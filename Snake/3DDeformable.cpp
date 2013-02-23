@@ -72,7 +72,7 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
 
 void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 	
-	double threshold = 0.1;
+	double threshold = 0.2;
 	//experiment 
 	switch(type){
 	case SHRINK_LEFT:
@@ -253,6 +253,7 @@ void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 }
 
 
+<<<<<<< HEAD
 void Deformable3D::muscleController(int horizontal_torque, int verticle_torque , float dt, float alpha, int segment_num)
 {
     if(horizontal_torque==2){
@@ -293,6 +294,8 @@ void Deformable3D::muscleController(int horizontal_torque, int verticle_torque ,
         m_accum_shrink_up -= alpha*dt;
     }
 }
+=======
+>>>>>>> 6ff2e95d2e84aa57e0fdf32070fa8b66098d0561
 
 void Deformable3D::InitDraw(){
     

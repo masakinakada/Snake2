@@ -71,14 +71,13 @@ public:
 	 void MouseLeft(float cursorX, float cursorY, const Camera& camera);//react to left mouse click
      void MouseRight(float cursorX, float cursorY, const Camera& camera);//react to right mouse click
 	 void MouseMove(const Camera& camera, double cursor_x, double cursor_y);
-
+	 void UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type);
 	 void Output2File(std::ofstream* filestream);
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-    
-    void muscleController(int horizontal_torque, int verticle_torque, float dt, float alpha, int segment_num);
+   
 
 private:
-    void UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type);
+    
 	void InitDraw();//Init the vertexs and color data on GPU, Init the shader program, link the shader program with the buffer data
     void UpdatePhysics(double dt);
 	void UpdateForce();

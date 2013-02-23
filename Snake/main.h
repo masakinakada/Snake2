@@ -9,7 +9,7 @@
 #include "Ball.h"
 #include "Timer.h"
 #include "Drawer.h"
-#include "Creature.h"
+#include "Snake.h"
 #include "Monkey.h"
 #include "GA.h"
 
@@ -29,7 +29,7 @@ Light Lumia;
 World * myWorld = NULL;
 Terrain* myTerrain = NULL;
 Drawer* myDrawer = NULL;
-Creature* myCreature = NULL;
+Snake* mySnake = NULL;
 GA* ga = NULL;
 
 int STOP = -1;//stop the animation

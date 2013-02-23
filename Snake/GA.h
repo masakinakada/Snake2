@@ -10,7 +10,7 @@
 #define Snake_GA_h
 
 #include "Monkey.h"
-#include "Creature.h"
+#include "Snake.h"
 
 #define SEATS_NUM 4
 #define MONKEY_NUM 15
@@ -20,10 +20,17 @@
 class GA
 {
 public:
-    GA(Creature *wCreature, World* wWorld);
+    GA(Snake *wSnake, World* wWorld);
     void init();
     void pickDrivers();
     int currentSeat;
+<<<<<<< HEAD
+=======
+    Monkey* monkeys[15];
+    Monkey* seats[SEATS_NUM];
+    Snake* gaSnake;
+    World* gaWorld;
+>>>>>>> 6ff2e95d2e84aa57e0fdf32070fa8b66098d0561
     void iterate(float time, float dt);
     void changeDrivers();
     void getDistance();

@@ -7,7 +7,7 @@
 //
 
 #include "Genome.h"
-#include "Creature.h"
+#include "Snake.h"
 #ifndef test_Monkey_h
 #define test_Monkey_h
 
@@ -27,7 +27,7 @@ public:
     Genome get_genome();
     void mutate_genome(int num, int generation);
     void bread_monkeys(Monkey otherMonkey, Monkey child, int runN);
-    void control_robot(Creature creature, float time, float dt, float alpha);
+    void control_robot(Snake Snake, float time, float dt, float alpha);
     void set_distance(float value);
     float get_distance();
 private:

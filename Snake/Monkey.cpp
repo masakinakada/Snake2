@@ -79,11 +79,11 @@ void Monkey::bread_monkeys(Monkey otherMonkey, Monkey child, int runN){
     child.set_runNumber(runN);
 }
 
-void Monkey::control_robot(Creature creature, float time, float dt, float alpha)
+void Monkey::control_robot(Snake Snake, float time, float dt, float alpha)
 {
     for(int k=0; k<MUSCLE_NUM; k++)
     {
-        creature.set_joint_velocity(k, SPEED_K*get_genome().calculate_torque(k, time), 0, dt, alpha);
+        Snake.set_joint_velocity(k, SPEED_K*get_genome().calculate_torque(k, time), 0, dt, alpha);
     }
 }
 

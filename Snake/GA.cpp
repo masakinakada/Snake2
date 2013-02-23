@@ -10,14 +10,14 @@
 
 using namespace std;
 
-GA::GA(Creature *wCreature, World* wWorld){
-    gaCreature = wCreature;
+GA::GA(Snake *wSnake, World* wWorld){
+    gaSnake = wSnake;
     gaWorld = wWorld;
     init();
 }
 
 void GA::init(){
-    // The "Monkeys" are the individuals that will control the Creature.
+    // The "Monkeys" are the individuals that will control the Snake.
     // Create the Monkeys and assign them numbers.
     for(int i=0;i<MONKEY_NUM;i++){
         monkeys[i] = new Monkey;
@@ -70,7 +70,7 @@ void GA::iterate(float time, float dt)
 {
     static float accumulated_time = 0.0;
     accumulated_time+=dt;
-    seats[currentSeat]->control_robot(*gaCreature, time, dt, 1.0);
+    seats[currentSeat]->control_robot(*gaSnake, time, dt, 1.0);
     
     
     // cout << "distance is " << driven_distance << endl;
@@ -85,7 +85,7 @@ void GA::iterate(float time, float dt)
 //this function should be called every 20 msec
 void GA::changeDrivers()
 {
-    seats[currentSeat]->set_distance(gaCreature->getDistance());
+    seats[currentSeat]->set_distance(gaSnake->getDistance());
     cout<<"Monkey #"<<seats[currentSeat]->get_number()<<" moved " <<seats[currentSeat]->get_distance()<<endl;
     
     if(seats[currentSeat]->get_distance()>bestDistance){
@@ -100,7 +100,7 @@ void GA::changeDrivers()
         cout<<"new Best Run count: "<<bestRun<<endl;
     }
     
-    gaCreature->to_center();
+	gaSnake->initPhysics();
     
     if(currentSeat>SEATS_NUM-2)
     {
@@ -112,7 +112,7 @@ void GA::changeDrivers()
         cout << "Chaning Driver to the next monkey....." << endl;
     
         currentSeat++;
-        //get the creature back to the origin and let the new driver to handle the control
+        //get the Snake back to the origin and let the new driver to handle the control
         int driver_num = seats[currentSeat]->get_number();
         cout << "next driver is monkey # "<< driver_num <<endl;
     }
