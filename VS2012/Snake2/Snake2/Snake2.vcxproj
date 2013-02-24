@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{964C6939-3FA9-48BF-9EA9-462F312D46E2}</ProjectGuid>
+    <RootNamespace>Snake2</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>freeglut.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Snake\3DDeformable.cpp" />
+    <ClCompile Include="..\..\..\Snake\Ball.cpp" />
+    <ClCompile Include="..\..\..\Snake\BallAux.cpp" />
+    <ClCompile Include="..\..\..\Snake\BallMath.cpp" />
+    <ClCompile Include="..\..\..\Snake\Camera.cpp" />
+    <ClCompile Include="..\..\..\Snake\Snake.cpp" />
+    <ClCompile Include="..\..\..\Snake\Drawer.cpp" />
+    <ClCompile Include="..\..\..\Snake\GA.cpp" />
+    <ClCompile Include="..\..\..\Snake\Genome.cpp" />
+    <ClCompile Include="..\..\..\Snake\main.cpp" />
+    <ClCompile Include="..\..\..\Snake\Monkey.cpp" />
+    <ClCompile Include="..\..\..\Snake\Object.cpp" />
+    <ClCompile Include="..\..\..\Snake\RigidCube.cpp" />
+    <ClCompile Include="..\..\..\Snake\Terrain.cpp" />
+    <ClCompile Include="..\..\..\Snake\Timer.cpp" />
+    <ClCompile Include="..\..\..\Snake\Utility.cpp" />
+    <ClCompile Include="..\..\..\Snake\World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Snake\3DDeformable.h" />
+    <ClInclude Include="..\..\..\Snake\Ball.h" />
+    <ClInclude Include="..\..\..\Snake\BallAux.h" />
+    <ClInclude Include="..\..\..\Snake\BallMath.h" />
+    <ClInclude Include="..\..\..\Snake\Camera.h" />
+    <ClInclude Include="..\..\..\Snake\Snake.h" />
+    <ClInclude Include="..\..\..\Snake\Drawer.h" />
+    <ClInclude Include="..\..\..\Snake\GA.h" />
+    <ClInclude Include="..\..\..\Snake\Genome.h" />
+    <ClInclude Include="..\..\..\Snake\Light.h" />
+    <ClInclude Include="..\..\..\Snake\main.h" />
+    <ClInclude Include="..\..\..\Snake\Monkey.h" />
+    <ClInclude Include="..\..\..\Snake\Object.h" />
+    <ClInclude Include="..\..\..\Snake\RigidCube.h" />
+    <ClInclude Include="..\..\..\Snake\Terrain.h" />
+    <ClInclude Include="..\..\..\Snake\Timer.h" />
+    <ClInclude Include="..\..\..\Snake\Utility.h" />
+    <ClInclude Include="..\..\..\Snake\World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\TODO.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
