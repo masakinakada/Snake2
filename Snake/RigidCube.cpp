@@ -115,6 +115,11 @@ void RigidCube::UpdatePhysics(double dt){
 		m_avelocity *= 0;
 	}
 
+	//making sure the m_rotation is a pure rotation, so that it does not explode
+	Eigen::JacobiSVD<Eigen::Matrix3f> svd(m_rotation, Eigen::ComputeFullU |Eigen::ComputeFullV );
+	
+	m_rotation = svd.matrixU()*(svd.matrixV().transpose());
+
 	//now update the matrixes
 	m_Trans.setIdentity();
 	m_Trans.translate(m_Center);
@@ -167,7 +172,7 @@ void RigidCube::HandleCollision(){
 	Eigen::Vector3f collision_surface_normal;
 	Eigen::Vector3f edge_velocity;
 	double IMPULSE;
-	double epsilon = 0.0;//the impulse coeeficient between 0~1
+	double epsilon = 0.2;//the impulse coeeficient between 0~1
 	Eigen::Vector3f temp;
 	Eigen::Vector3f temp_r;
 	Eigen::Matrix3f temp_I;
