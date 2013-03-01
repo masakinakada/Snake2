@@ -7,7 +7,7 @@
 //
 
 #include "Snake.h"
-#define INITIAL_POS 2.0
+#define INITIAL_POS 1.5
 
 
 
@@ -122,17 +122,17 @@ void Snake::initPhysics(){
 
 	}
 
+	//m_bones[0].m_fixed = true;
+	//m_bones[m_num_segment-1].m_fixed = true;
+
 }
 
 float Snake::getDistance()
 {
 	//TODO: seems too simple
 
-    curPos = m_bones[0].m_Center;
-    Eigen::Vector3f dis = curPos;
-    float distance = dis.norm();
-    
-    return distance;
+   return -m_bones[0].m_Center[0];
+
 }
 
 void Snake::destroySnake()

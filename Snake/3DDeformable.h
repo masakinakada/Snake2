@@ -54,8 +54,6 @@ private:
 	double m_accum_shrink_up;
 	double m_accum_shrink_down;
 
-	double m_timer;
-
 public:
     Mesh3D* m_Mesh;
     Mesh3D* m_Rest_Mesh;

@@ -31,6 +31,9 @@ void RigidCube::Init(double density, Eigen::Vector3f center,Eigen::Vector3f size
 	m_inertia *= m_mass/12.0;
 	m_inertia_inverse = m_inertia.inverse();
 
+	m_nodes.clear();
+	m_edges.clear();
+
 	SetEdges();
 
 	m_fixed = false;

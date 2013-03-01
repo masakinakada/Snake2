@@ -48,18 +48,13 @@ public:
     void set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha);
     void deactivate_friction();
     float getDistance();
-    RigidCube* cube1;
-    RigidCube* cube2;
-    RigidCube* cube3;
-    Deformable3D* deform1;
-    Deformable3D* deform2;
-    Eigen::Vector3f curPos;
-    Eigen::Vector3f prePos;
     void destroySnake();
     void Draw(int type, const Camera& camera, const Light& light);//Update data on GPU's buffer and draw the vertexs, rotate clockwise around z with speed
 	void UpdateAll(double dt);
 	void SetWorld(World *a_world);
 private:
+	Eigen::Vector3f curPos;
+    Eigen::Vector3f prePos;
 	int m_num_segment;
 	Bone* m_bones;
 	Muscle* m_muscles;

@@ -16,6 +16,10 @@
 typedef std::queue<Node*> NodeQueue;
 
 Deformable3D::Deformable3D(){
+	m_Mesh = NULL;
+	m_Rest_Mesh = NULL;
+	m_Init_Mesh = NULL;
+
 	m_is_init = false;
 	m_Manipulated = false;
     m_type = TypeDeformable3D;
@@ -26,7 +30,7 @@ Deformable3D::~Deformable3D(){
 }
 
 void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float poisson, float gamma, Eigen::Vector3f position, Eigen::Vector3f size, Eigen::Vector3f color){
-    
+
     m_Num = Num;
     m_Mu = youngs/(2*(1+poisson));
     m_Lambda = youngs*poisson/((1+poisson)*(1-2*poisson));
@@ -40,6 +44,14 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
 	mesh_size[0] = m_Size[0]/m_Num[0];
 	mesh_size[1] = m_Size[1]/m_Num[1];
 	mesh_size[2] = m_Size[2]/m_Num[2];
+	
+	if(!m_Mesh)
+		delete[] m_Mesh;
+	if(!m_Rest_Mesh)
+		delete[] m_Rest_Mesh;
+	if(!m_Init_Mesh)
+		delete[] m_Init_Mesh;
+
     m_Mesh = new Mesh3D(Num, mesh_size, position);//generate the mesh of tetras and nodes and triangles, down, left, back corner at position
     m_Rest_Mesh = new Mesh3D(Num, mesh_size, -0.5*m_Size);
 	m_Init_Mesh =new Mesh3D(Num, mesh_size, -0.5*m_Size);
@@ -529,23 +541,6 @@ void Deformable3D::UpdatePhysics(double dt){
 }
  
 void Deformable3D::UpdateAll(double dt){
-
-	
-	m_timer += dt;
-    /*
-	if(m_timer < 2)
-		UpdateRestShape(dt, 1, SHRINK_LEFT);
-	else if(m_timer <4)
-		UpdateRestShape(dt, 1, RELEASE_LEFT);
-    else if(m_timer <6)
-		UpdateRestShape(dt, 1, SHRINK_RIGHT);
-    else if(m_timer <8)
-		UpdateRestShape(dt, 1, RELEASE_RIGHT);
-    else if(m_timer <10)
-		UpdateRestShape(dt, 1, SHRINK_UP);
-    else if(m_timer <12)
-		UpdateRestShape(dt, 1, RELEASE_UP);
-*/
 	UpdatePhysics(dt);
     //update drawing buffer: Points and Colors, Normals, etc
     UpdateDraw();

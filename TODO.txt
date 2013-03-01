@@ -1,5 +1,5 @@
 Issues:
 
-The rigid section can get unstable and explode, symptom: visible shaking and enlarge of the size. 
+The rigid section can get unstable and explode, symptom: visible shaking and enlarge of the size[Fixed]. Twisting body around, should not happen; 
 
 Masaki reported that the friction seems wrong.

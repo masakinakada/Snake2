@@ -34,7 +34,6 @@ public:
 	virtual void Init(double density, Eigen::Vector3f center,Eigen::Vector3f size, Eigen::Vector3f color);
 	virtual void UpdateAll(double dt);
 	virtual void UpdatePhysics(double dt);
-	virtual void UdpateDraw(){};
 	virtual void SetEdges();
 	virtual void AttachNodes(std::vector<Node*> & a_list_nodes);
 	virtual void AttachNode(Node* a_node);
