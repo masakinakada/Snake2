@@ -30,7 +30,7 @@ void initScene(){
     
     std::cout<<"Setting up the World..."<<std::endl;
     
-	myTerrain = new Terrain(Eigen::Vector2f(100,100), Eigen::Vector2i(100,100), 100, TERRAIN_FLAT);
+	myTerrain = new Terrain(Eigen::Vector2f(500,500), Eigen::Vector2i(100,100), 100, TERRAIN_FLAT);
     
 	reinitScene();
     
@@ -46,10 +46,8 @@ void reinitScene(){
 	myWorld->Clear();//clear everything
 	myWorld->Add_Object(myTerrain);//add back the terrain
     
-    mySnake = new Snake(MUSCLE_NUM+1);
-	myWorld->Add_Object(mySnake);
 
-    ga = new GA(mySnake, myWorld);
+    ga = new GA(myWorld);
     
     TIME_LAST = TM.GetElapsedTime() ;
 	DTIME = 0.0;

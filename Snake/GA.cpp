@@ -10,9 +10,11 @@
 
 using namespace std;
 
-GA::GA(Snake *wSnake, World* wWorld){
-    gaSnake = wSnake;
-    gaWorld = wWorld;
+GA::GA(World* wWorld){
+    for(int i=0;i<SEATS_NUM;i++){
+        gaSnake[i] = new Snake(MUSCLE_NUM+1, i);
+        wWorld->Add_Object(gaSnake[i]);
+    }
     init();
 }
 
@@ -62,18 +64,16 @@ void GA::pickDrivers(){
         cout<<"Monkey #" <<card[i]<<endl;
        
     }
-    currentSeat = 0;
-    cout<<"First driver is Monkey #"<<seats[currentSeat]->get_number()<<endl;
 }
 
 void GA::iterate(float time, float dt)
 {
     static float accumulated_time = 0.0;
     accumulated_time+=dt;
-    seats[currentSeat]->control_robot(*gaSnake, time, dt, 1.0);
-    
-    
-    // cout << "distance is " << driven_distance << endl;
+    for(int i=0;i<SEATS_NUM;i++)
+    {
+        seats[i]->control_robot(*gaSnake[i], time, dt, 2.0);
+    }
     if(accumulated_time>10.0)
     {
         changeDrivers();
@@ -85,37 +85,31 @@ void GA::iterate(float time, float dt)
 //this function should be called every 20 msec
 void GA::changeDrivers()
 {
-    seats[currentSeat]->set_distance(gaSnake->getDistance());
-    cout<<"Monkey #"<<seats[currentSeat]->get_number()<<" moved " <<seats[currentSeat]->get_distance()<<endl;
     
-    if(seats[currentSeat]->get_distance()>bestDistance){
-        bestDistance = seats[currentSeat]->get_distance();
-        bestDriver = seats[currentSeat];
-        bestGeneration = seats[currentSeat]->get_generation();
-        bestRun = runCount;
+    for(int i=0; i<SEATS_NUM; i++){
+    	
+        seats[i]->set_distance(gaSnake[i]->getDistance());
+        cout<<"Monkey #"<<seats[i]->get_number()<<" moved " <<seats[i]->get_distance()<<endl;
+        if(seats[i]->get_distance()>bestDistance){
+            bestDistance = seats[i]->get_distance();
+            bestDriver = seats[i];
+            bestGeneration = seats[i]->get_generation();
+            bestRun = runCount;
         
-        cout<<"new Best Distance:" <<bestDistance<<endl;
-        cout<<"new Best Driver: Monkey #"<<bestDriver->get_number()<<endl;
-        cout<<"new Best Generation: "<<bestGeneration<<endl;
-        cout<<"new Best Run count: "<<bestRun<<endl;
+            cout<<"new Best Distance:" <<bestDistance<<endl;
+            cout<<"new Best Driver: Monkey #"<<bestDriver->get_number()<<endl;
+            cout<<"new Best Generation: "<<bestGeneration<<endl;
+            cout<<"new Best Run count: "<<bestRun<<endl;
+        }
+        
+        gaSnake[i]->initPhysics(i);
     }
     
-	gaSnake->initPhysics();
-    
-    if(currentSeat>SEATS_NUM-2)
-    {
-        cout << "breading monkeys, and generate new generation" <<endl;
-        breadMonkeys(runCount);
-        pickDrivers();
-        cout<<"Run Count: "<<runCount++<<endl;
-    } else{
-        cout << "Chaning Driver to the next monkey....." << endl;
-    
-        currentSeat++;
-        //get the Snake back to the origin and let the new driver to handle the control
-        int driver_num = seats[currentSeat]->get_number();
-        cout << "next driver is monkey # "<< driver_num <<endl;
-    }
+      
+    cout << "breading monkeys, and generate new generation" <<endl;
+    breadMonkeys(runCount);
+    pickDrivers();
+    cout<<"Run Count: "<<runCount++<<endl;
 }
 
 void GA::sortByDistance()

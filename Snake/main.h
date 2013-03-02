@@ -29,7 +29,6 @@ Light Lumia;
 World * myWorld = NULL;
 Terrain* myTerrain = NULL;
 Drawer* myDrawer = NULL;
-Snake* mySnake = NULL;
 GA* ga = NULL;
 
 int STOP = -1;//stop the animation

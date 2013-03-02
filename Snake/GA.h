@@ -20,7 +20,7 @@
 class GA
 {
 public:
-    GA(Snake *wSnake, World* wWorld);
+    GA(World* wWorld);
     void init();
     void pickDrivers();
     int currentSeat;
@@ -37,8 +37,7 @@ public:
 private:
     Monkey* monkeys[15];
     Monkey* seats[SEATS_NUM];
-    Snake* gaSnake;
-    World* gaWorld;
+    Snake* gaSnake[SEATS_NUM];
     int card[MONKEY_NUM];
     float bestDistance;
     Monkey* bestDriver;

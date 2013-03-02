@@ -40,10 +40,10 @@ public:
 class Snake:public Object
 {
 public:
-    Snake(int a_num_segments);
+    Snake(int a_num_segments, int snake_num);
     ~Snake();
-    void init();
-	void initPhysics();
+    void init(int snake_num);
+	void initPhysics(int snake_num);
     struct links get_root();
     void set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha);
     void deactivate_friction();

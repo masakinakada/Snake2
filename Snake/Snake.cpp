@@ -8,6 +8,8 @@
 
 #include "Snake.h"
 #define INITIAL_POS 1.5
+#include <iostream>
+
 
 
 
@@ -40,14 +42,17 @@ void Muscle::muscleController(int horizontal_torque, int verticle_torque , float
 }
 
 
-Snake::Snake(int a_num_seg)
+Snake::Snake(int a_num_seg, int snake_num)
 {
 	m_num_segment = a_num_seg;
 
     curPos = Eigen::Vector3f(0.0,INITIAL_POS,0.0);
     prePos = Eigen::Vector3f(0.0,INITIAL_POS,0.0);
 
-	init();
+	init(snake_num);
+    
+    static int count = 0;
+    std::cout<<"Snake #" <<count++<<std::endl;
 }
 
 Snake::~Snake(){
@@ -74,7 +79,7 @@ void Snake::set_joint_velocity(int muscle_num, int horizontal_torque, int vertic
     
 }
 
-void Snake::init(){
+void Snake::init(int snake_num){
     
 	m_bones = new Bone[m_num_segment];
 	m_muscles = new Muscle[m_num_segment-1];
@@ -89,17 +94,17 @@ void Snake::init(){
 	}
 	m_bones[m_num_segment - 1].m_next = NULL;
 
-	initPhysics();
+	initPhysics(snake_num);
 }
 
-void Snake::initPhysics(){
+void Snake::initPhysics(int snake_num){
 	
 	Eigen::Vector3i deform_res(3,3,3);double youngs_modulus = 2000;
 	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(0.5,2,2); double deform_length = 2;
 	std::vector<Node*> temp_nodes;
 
 	//create the head bone
-	m_bones[0].Init(1.0, Eigen::Vector3f(0,INITIAL_POS,0), rigid_size, Eigen::Vector3f(1,0,0));
+	m_bones[0].Init(1.0, Eigen::Vector3f(0,INITIAL_POS,snake_num*20), rigid_size, Eigen::Vector3f(1,0,0));
 
 	for(int i = 0; i < m_num_segment - 1; i++)
 	{
