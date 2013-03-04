@@ -90,7 +90,7 @@ void Genome::mutate(int num, int generation)
     else if(n<MUSCLE_NUM*2) genomeData[n] = fRand(-6.3, 6.3);
     else genomeData[MUSCLE_NUM*2] = fRand(-4.0, 4.0);
     
-    cout<<"gene # " << n << "mutated for Monkey #" << num <<" of generation " << generation << endl;
+    cout<<"gene # " << n << " mutated for Monkey #" << num <<" of generation " << generation << endl;
 }
 
 void Genome::crossover(Genome parent1, Genome parent2)

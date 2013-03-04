@@ -146,6 +146,6 @@ void GA::breadMonkeys(int runN)
     
     cout<<"Mutate Monkey #" <<seats[2]->get_number()<<endl;
     cout<<"Mutate Monkey #" <<seats[3]->get_number()<<endl;
-    seats[2]->mutate_genome(seats[2]->get_number(), runN);
-    seats[3]->mutate_genome(seats[3]->get_number(), runN);
+    seats[2]->mutate_genome(seats[2]->get_number(), seats[2]->get_generation());
+    seats[3]->mutate_genome(seats[3]->get_number(), seats[2]->get_generation());
 }
