@@ -142,10 +142,12 @@ void GA::breadMonkeys(int runN)
     cout <<"bread Monkey#"<<seats[1]->get_number()<<" and Monkey #" <<seats[0]->get_number()<<", set the breaded genome to Monkey #"<< seats[3]->get_number()<<endl;
     seats[0]->bread_monkeys(*seats[1], *seats[2], runN);
     seats[1]->bread_monkeys(*seats[0], *seats[3], runN);
-    ;
     
     cout<<"Mutate Monkey #" <<seats[2]->get_number()<<endl;
     cout<<"Mutate Monkey #" <<seats[3]->get_number()<<endl;
     seats[2]->mutate_genome(seats[2]->get_number(), seats[2]->get_generation());
-    seats[3]->mutate_genome(seats[3]->get_number(), seats[2]->get_generation());
+    seats[3]->mutate_genome(seats[3]->get_number(), seats[3]->get_generation());
+    
+    seats[2]->increase_generation();
+    seats[3]->increase_generation();
 }
