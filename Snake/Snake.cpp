@@ -196,7 +196,7 @@ void Snake::UpdateAll(double dt){
 	{
 		m_bones[i].UpdateAll(dt);
 	}
-
+	
 	for(int i = 0; i < m_num_segment-1; i++)
 	{
 		m_muscles[i].UpdateAll(dt);

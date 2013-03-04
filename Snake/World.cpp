@@ -56,13 +56,14 @@ void World::Draw(int type, const Camera& camera, const Light& light){
 }
 
 void World::Update(double dt){
-    
+    int num_division = dt/(1/2000.0);
 	//parallize
 #ifdef WIN32
 #pragma omp parallel for
 #endif
 	for ( int i = 0; i<List_of_Object.size(); i++) {
-       List_of_Object[i]->UpdateAll(dt);
+	   for ( int j = 0; j < num_division; j++)
+			List_of_Object[i]->UpdateAll(1/2000.0);
     }
 }
 

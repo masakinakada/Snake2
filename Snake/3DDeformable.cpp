@@ -571,9 +571,6 @@ void Deformable3D::UpdatePhysics(double dt){
  
 void Deformable3D::UpdateAll(double dt){
 	UpdatePhysics(dt);
-    //update drawing buffer: Points and Colors, Normals, etc
-    UpdateDraw();
-                    
 }
 
 void Deformable3D::MouseMove(const Camera& camera, double cursor_x, double cursor_y){
@@ -587,6 +584,9 @@ void Deformable3D::MouseMove(const Camera& camera, double cursor_x, double curso
  
 void Deformable3D::Draw(int type, const Camera& camera, const Light& light){
     
+    //update drawing buffer: Points and Colors, Normals, etc
+    UpdateDraw();
+                    
 
     //dt is the timestep, x and y are the cursor's input, camera defines the view atmrix and projection matrix
     //update the position and color of vertexesfor drawing

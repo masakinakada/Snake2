@@ -206,33 +206,24 @@ void idleCallback(){
 	DTIME = TIME - TIME_LAST;
 	TIME_LAST = TIME;
     
-	if(DTIME > 1/1000.0)
-		DTIME = 1/1000.0;
 	
-	DTIME = 1/2000.0;//fixed dt
-    
 	FRAME_TIME += DTIME;
     
 	if(STOP == -1){
-        //this is the iteraciotn for GA
-        ga->iterate(TIME, DTIME);
-        //only update physics
-		myWorld->Update(DTIME);
-    
+
+		myWorld->Update(0.01);//real dt for physics is 1/2000, look inside.
+		ga->iterate(TIME, 0.01);//dt for ga is 1/100
+	   
 	}
     
-	if(FRAME_TIME > 0.01)//33 frames per second
+	if(FRAME_TIME > 0.03)//33 frames per second
 	{
-		glutPostRedisplay() ; //draw new frame
+		glutPostRedisplay(); //draw new frame
 		FRAME_TIME = 0;
 		FRAME_COUNT++;
 		//OUTPUT_ONE_FRAME();
 	}
-    
-	
-    
-    
-	//printf("Physics Rate %f\r", 1.0/DTIME) ;
+//printf("Physics Rate %f\r", 1.0/DTIME) ;
 }
 
 
