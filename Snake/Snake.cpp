@@ -105,13 +105,15 @@ void Snake::initPhysics(int snake_num){
 
 	//create the head bone
 	m_bones[0].Init(1.0, Eigen::Vector3f(0,INITIAL_POS,snake_num*20), rigid_size, Eigen::Vector3f(1,0,0));
+    
+    float density = 0.3;
 
 	for(int i = 0; i < m_num_segment - 1; i++)
 	{
 		temp_position = m_bones[i].m_Center
 				+ Eigen::Vector3f(0.5*rigid_size[0], -0.5*rigid_size[1], -0.5*rigid_size[2]);
 		//create the i-th muscle
-		m_muscles[i].Init(deform_res,1.0,youngs_modulus,0.4,100.0,temp_position,
+		m_muscles[i].Init(deform_res,density,youngs_modulus,0.4,100.0,temp_position,
                   Eigen::Vector3f(deform_length,rigid_size[1],rigid_size[2]),Eigen::Vector3f(1,1,1));
 		//create the i+1-th bone
 		temp_position = m_bones[i].m_Center + Eigen::Vector3f(deform_length + rigid_size[0],0,0);
@@ -135,8 +137,18 @@ void Snake::initPhysics(int snake_num){
 float Snake::getDistance()
 {
 	//TODO: seems too simple
+    
+    //std::cout<<"Head position = "<<m_bones[0].m_Center<<std::endl;
+    //std::cout<<"Tail Position = "<<m_bones[7].m_Center<<std::endl;
 
-   return -m_bones[0].m_Center[0];
+    //we take negative because snake is moving toward negative x direction
+    //also take average of all segmentds so that we have whole body moving forward
+    float distance = 0;
+    for (int i=0; i<m_num_segment; i++) {
+        distance-=m_bones[i].m_Center[0];
+    }
+    distance = distance/m_num_segment;
+   return distance;
 
 }
 
