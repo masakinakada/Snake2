@@ -12,6 +12,11 @@ Mesh3D::Mesh3D(Eigen::Vector3i a_num, Eigen::Vector3f a_size, Eigen::Vector3f a_
     Meshialize(a_num, a_size, a_position);
 }
 
+Mesh3D::~Mesh3D(){
+    delete[] m_Nodes;
+    delete[] m_Tetras;
+}
+
 void Mesh3D::Meshialize(Eigen::Vector3i a_num, Eigen::Vector3f a_size, Eigen::Vector3f a_position){
     m_Num = a_num;
     m_Size = a_size;

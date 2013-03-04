@@ -132,6 +132,37 @@ void Snake::initPhysics(int snake_num){
 
 }
 
+void Snake::Reinit(int snake_num){
+
+	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(0.5,2,2); double deform_length = 2;
+	std::vector<Node*> temp_nodes;
+
+	//create the head bone
+	m_bones[0].Reinit(Eigen::Vector3f(0,INITIAL_POS,snake_num*20));
+
+	for(int i = 0; i < m_num_segment - 1; i++)
+	{
+		temp_position = m_bones[i].m_Center
+				+ Eigen::Vector3f(0.5*rigid_size[0], -0.5*rigid_size[1], -0.5*rigid_size[2]);
+		//create the i-th muscle
+		m_muscles[i].Reinit(temp_position);
+                  
+		//create the i+1-th bone
+		temp_position = m_bones[i].m_Center + Eigen::Vector3f(deform_length + rigid_size[0],0,0);
+		m_bones[i+1].Reinit(temp_position);
+
+		//attach the previous bone to current muscle
+		temp_nodes = m_muscles[i].m_Mesh->GetLeftNodes();
+		m_bones[i].AttachNodes(temp_nodes);
+
+		//attach the next bone to current muscle
+		temp_nodes = m_muscles[i].m_Mesh->GetRightNodes();
+		m_bones[i+1].AttachNodes(temp_nodes);
+
+	}
+
+}
+
 float Snake::getDistance()
 {
 	//TODO: seems too simple
@@ -166,10 +197,6 @@ void Snake::UpdateAll(double dt){
 		m_bones[i].UpdateAll(dt);
 	}
 
-	//parallize
-#ifdef WIN32
-#pragma omp parallel for
-#endif
 	for(int i = 0; i < m_num_segment-1; i++)
 	{
 		m_muscles[i].UpdateAll(dt);

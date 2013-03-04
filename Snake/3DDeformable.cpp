@@ -29,6 +29,41 @@ Deformable3D::~Deformable3D(){
 
 }
 
+void Deformable3D::Reinit(Eigen::Vector3f position){
+
+	Eigen::Vector3f mesh_size;
+	mesh_size[0] = m_Size[0]/m_Num[0];
+	mesh_size[1] = m_Size[1]/m_Num[1];
+	mesh_size[2] = m_Size[2]/m_Num[2];
+	
+	delete m_Mesh;
+	delete m_Rest_Mesh;
+	delete m_Init_Mesh;
+
+    m_Mesh = new Mesh3D(m_Num, mesh_size, position);//generate the mesh of tetras and nodes and triangles, down, left, back corner at position
+    m_Rest_Mesh = new Mesh3D(m_Num, mesh_size, -0.5*m_Size);
+	m_Init_Mesh =new Mesh3D(m_Num, mesh_size, -0.5*m_Size);
+
+	m_accum_shrink_left = 0;
+	m_accum_shrink_right = 0;
+	m_accum_shrink_up = 0;
+	m_accum_shrink_down = 0;
+
+	UpdateRestShape(0,0,STATIC);
+    
+	//Init Node Mass
+	Tetrahedron* temp_tetra;
+    for(int id = 0; id < m_Mesh->m_Num_Tetra; id++){
+        temp_tetra = &m_Mesh->m_Tetras[id];
+        //distribute mass for each tetra
+        temp_tetra->m_node_1->m_Mass +=  0.25*temp_tetra->m_volume*m_Density;
+        temp_tetra->m_node_2->m_Mass +=  0.25*temp_tetra->m_volume*m_Density;
+        temp_tetra->m_node_3->m_Mass +=  0.25*temp_tetra->m_volume*m_Density;
+        temp_tetra->m_node_4->m_Mass +=  0.25*temp_tetra->m_volume*m_Density;
+    }
+
+
+}
 void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float poisson, float gamma, Eigen::Vector3f position, Eigen::Vector3f size, Eigen::Vector3f color){
 
     m_Num = Num;
@@ -36,7 +71,6 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
     m_Lambda = youngs*poisson/((1+poisson)*(1-2*poisson));
     m_Gamma = gamma;
     m_Density = density;//default mass for nodes
-	m_Position = position;
 	m_Color = color;
 	m_Size = size;
 
@@ -45,12 +79,7 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
 	mesh_size[1] = m_Size[1]/m_Num[1];
 	mesh_size[2] = m_Size[2]/m_Num[2];
 	
-	if(!m_Mesh)
-		delete[] m_Mesh;
-	if(!m_Rest_Mesh)
-		delete[] m_Rest_Mesh;
-	if(!m_Init_Mesh)
-		delete[] m_Init_Mesh;
+	
 
     m_Mesh = new Mesh3D(Num, mesh_size, position);//generate the mesh of tetras and nodes and triangles, down, left, back corner at position
     m_Rest_Mesh = new Mesh3D(Num, mesh_size, -0.5*m_Size);
