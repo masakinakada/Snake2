@@ -19,7 +19,7 @@ Deformable3D::Deformable3D(){
 	m_Mesh = NULL;
 	m_Rest_Mesh = NULL;
 	m_Init_Mesh = NULL;
-
+	m_Direction = Eigen::Vector3f(-1,0,0);
 	m_is_init = false;
 	m_Manipulated = false;
     m_type = TypeDeformable3D;
@@ -78,7 +78,6 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
 	mesh_size[0] = m_Size[0]/m_Num[0];
 	mesh_size[1] = m_Size[1]/m_Num[1];
 	mesh_size[2] = m_Size[2]/m_Num[2];
-	
 	
 
     m_Mesh = new Mesh3D(Num, mesh_size, position);//generate the mesh of tetras and nodes and triangles, down, left, back corner at position
@@ -505,6 +504,7 @@ void Deformable3D::HandleCollision(Node& a_node){
 					
 					prev_momentom_n = a_node.m_Mass*a_node.m_Velocity.dot(surface_normal)*surface_normal;
 					prev_momentom_v = a_node.m_Mass*a_node.m_Velocity - prev_momentom_n;
+					friction_ness = (1 - prev_momentom_v.normalized().dot(m_Direction))*0.5 + 1.0;
 					new_velocity_n_vector = prev_momentom_v.normalized();
 
 					new_momentom_n = -rebouce_ness* prev_momentom_n;

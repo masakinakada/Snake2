@@ -57,6 +57,7 @@ public:
     Mesh3D* m_Mesh;
     Mesh3D* m_Rest_Mesh;
 	Mesh3D* m_Init_Mesh;
+	Eigen::Vector3f m_Direction;
 public:
      Deformable3D();
     ~Deformable3D();

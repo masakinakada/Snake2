@@ -200,6 +200,7 @@ void Snake::UpdateAll(double dt){
 	for(int i = 0; i < m_num_segment-1; i++)
 	{
 		m_muscles[i].UpdateAll(dt);
+		m_muscles[i].m_Direction = m_bones[i].m_Center - m_bones[i+1].m_Center;
 	}
 
 }
