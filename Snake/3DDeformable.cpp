@@ -112,7 +112,7 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
 
 void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 	
-	double threshold = 0.2;
+	double threshold = 0.5;
 	//experiment 
 	switch(type){
 	case SHRINK_LEFT:

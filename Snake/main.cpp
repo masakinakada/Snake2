@@ -9,7 +9,7 @@
 #include "main.h"
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
-#include <crtdbg.h>
+
 
 void initScene(){
     
@@ -87,7 +87,6 @@ void keyboardCallback(unsigned char key, int x, int y){
     
 	if ( key == EscKey || key == 'q' || key == 'Q' )
     {
-	_CrtDumpMemoryLeaks();
         exit(0);
     }
     if( key == 's'|| key == 'S')

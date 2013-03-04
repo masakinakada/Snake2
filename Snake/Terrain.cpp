@@ -172,7 +172,6 @@ double Terrain::GetHeight(Eigen::Vector2f xy) const{
 	
 	Cube* temp_cube;
 	Cylinder* temp_cylinder;
-	Sphere* temp_sphere;
 
 	double x = xy.x();
 	double z = xy.y();
