@@ -99,7 +99,7 @@ void Snake::init(int snake_num){
 
 void Snake::initPhysics(int snake_num){
 	
-	Eigen::Vector3i deform_res(3,3,3);double youngs_modulus = 2000;
+	Eigen::Vector3i deform_res(2,2,2);double youngs_modulus = 2000;
 	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(0.5,2,2); double deform_length = 2;
 	std::vector<Node*> temp_nodes;
 
