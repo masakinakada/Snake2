@@ -106,7 +106,7 @@ void Snake::initPhysics(int snake_num){
 	//create the head bone
 	m_bones[0].Init(1.0, Eigen::Vector3f(0,INITIAL_POS,snake_num*20), rigid_size, Eigen::Vector3f(1,0,0));
     
-    float density = 0.3;
+    float density = 1.0;
 
 	for(int i = 0; i < m_num_segment - 1; i++)
 	{
