@@ -31,13 +31,33 @@ void RigidCube::Init(double density, Eigen::Vector3f center,Eigen::Vector3f size
 	m_inertia *= m_mass/12.0;
 	m_inertia_inverse = m_inertia.inverse();
 
-	m_nodes.clear();
-	m_edges.clear();
-
 	SetEdges();
 
 	m_fixed = false;
 }
+
+void RigidCube::Reinit(Eigen::Vector3f center){
+    m_Center = center;
+	m_avelocity *= 0;
+	m_velocity *= 0;
+	m_force *= 0;
+	m_torque *= 0;
+    
+	m_rotation.setIdentity();
+    m_Trans.setIdentity();
+    m_Trans.translate(m_Center);
+    m_Trans.scale(m_Size);
+    
+    m_TransBack = m_Trans.inverse();
+    
+	ClearAttachMent();
+}
+
+void RigidCube::ClearAttachMent(){
+	m_nodes.clear();
+}
+
+
 void RigidCube::SetEdges(){
 	
 	Node* temp_node;

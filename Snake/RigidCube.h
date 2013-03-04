@@ -32,6 +32,7 @@ public:
 	Eigen::Vector3f m_torque;
 
 	virtual void Init(double density, Eigen::Vector3f center,Eigen::Vector3f size, Eigen::Vector3f color);
+	virtual void Reinit(Eigen::Vector3f center);
 	virtual void UpdateAll(double dt);
 	virtual void UpdatePhysics(double dt);
 	virtual void SetEdges();
@@ -40,6 +41,7 @@ public:
 	virtual void HandleCollision();
 	virtual bool CheckCollision(const Eigen::Vector3f& a_point, Eigen::Vector3f& a_normal);
 	virtual void UpdateFixed();
+	void ClearAttachMent();
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
 

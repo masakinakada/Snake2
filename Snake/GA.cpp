@@ -102,7 +102,7 @@ void GA::changeDrivers()
             cout<<"new Best Run count: "<<bestRun<<endl;
         }
         
-        gaSnake[i]->initPhysics(i);
+        gaSnake[i]->Reinit(i);
     }
     
       

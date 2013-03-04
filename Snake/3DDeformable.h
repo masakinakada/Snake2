@@ -24,7 +24,6 @@ private:
     //real data
     Eigen::Vector3i m_Num;
 	Eigen::Vector3f m_Color;
-	Eigen::Vector3f m_Position;
 	Eigen::Vector3f m_Size;
 
     float m_Density;//mass density over the volume
@@ -58,12 +57,13 @@ public:
     Mesh3D* m_Mesh;
     Mesh3D* m_Rest_Mesh;
 	Mesh3D* m_Init_Mesh;
+	Eigen::Vector3f m_Direction;
 public:
      Deformable3D();
     ~Deformable3D();
 	 
 	 void Init(Eigen::Vector3i Num, float density, float youngs, float poisson, float gamma, Eigen::Vector3f position, Eigen::Vector3f size,Eigen::Vector3f color);//position is the center of the bottom plane
-	 
+	 void Reinit(Eigen::Vector3f Position); 
 	 void UpdateAll(double dt);//Update the position, velocity, force, based on Newton Mechanics, Using Implicit Euler Method, Update the vertexs for drawing
 	 void Draw(int type,const Camera& camera, const Light& light);//Update data on GPU's buffer and draw the vertexs
 	 void MouseLeft(float cursorX, float cursorY, const Camera& camera);//react to left mouse click

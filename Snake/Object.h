@@ -101,7 +101,7 @@ class Mesh3D{
 //store pure gemoetry
 public:
     Mesh3D(Eigen::Vector3i a_num, Eigen::Vector3f a_size, Eigen::Vector3f a_position);
-    virtual ~Mesh3D(){}
+    virtual ~Mesh3D();
     void Meshialize(Eigen::Vector3i a_num, Eigen::Vector3f a_size, Eigen::Vector3f a_position);
     
 	std::vector<Node*> GetTopNodes();//return the vector nodes on the +y face of the 3D cubic mesh
