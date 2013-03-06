@@ -138,16 +138,24 @@ void GA::sortByDistance()
 void GA::breadMonkeys(int runN)
 {
     sortByDistance();
-    cout <<"bread Monkey#"<<seats[0]->get_number()<<" and Monkey #" <<seats[1]->get_number()<<", set the breaded genome to Monkey #"<< seats[2]->get_number()<<endl;
-    cout <<"bread Monkey#"<<seats[1]->get_number()<<" and Monkey #" <<seats[0]->get_number()<<", set the breaded genome to Monkey #"<< seats[3]->get_number()<<endl;
-    seats[0]->bread_monkeys(*seats[1], *seats[2], runN);
-    seats[1]->bread_monkeys(*seats[0], *seats[3], runN);
+    for (int i=0; i<SEATS_NUM/2; i++) {
+        
+        if(i<SEATS_NUM/2-1){
+            cout <<"bread Monkey#"<<seats[i]->get_number()<<" and Monkey #" <<seats[i+1]->get_number()<<", set the breaded genome to Monkey #"<< seats[SEATS_NUM/2+i]->get_number()<<endl;
+            seats[i]->bread_monkeys(*seats[i+1], *seats[SEATS_NUM/2+i], runN);
+            
+            cout<<"Mutate Monkey #" <<seats[SEATS_NUM/2+i]->get_number()<<endl;
+            seats[SEATS_NUM/2+i]->mutate_genome(seats[SEATS_NUM/2+i]->get_number(), seats[SEATS_NUM/2+i]->get_generation());
+            
+            seats[SEATS_NUM/2+i]->increase_generation();
+        }else{
+            cout <<"bread Monkey#"<<seats[i]->get_number()<<" and Monkey #" <<seats[0]->get_number()<<", set the breaded genome to Monkey #"<< seats[SEATS_NUM/2+i]->get_number()<<endl;
+            seats[i]->bread_monkeys(*seats[0], *seats[SEATS_NUM/2+i], runN);
+            
+            cout<<"Mutate Monkey #" <<seats[SEATS_NUM/2+i]->get_number()<<endl;
+            seats[SEATS_NUM/2+i]->mutate_genome(seats[SEATS_NUM/2+i]->get_number(), seats[SEATS_NUM/2+i]->get_generation());
+            seats[SEATS_NUM/2+i]->increase_generation();
+        }
+    }
     
-    cout<<"Mutate Monkey #" <<seats[2]->get_number()<<endl;
-    cout<<"Mutate Monkey #" <<seats[3]->get_number()<<endl;
-    seats[2]->mutate_genome(seats[2]->get_number(), seats[2]->get_generation());
-    seats[3]->mutate_genome(seats[3]->get_number(), seats[3]->get_generation());
-    
-    seats[2]->increase_generation();
-    seats[3]->increase_generation();
 }

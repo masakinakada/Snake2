@@ -81,7 +81,7 @@ void Monkey::control_robot(Snake Snake, float time, float dt, float alpha)
 {
     for(int k=0; k<MUSCLE_NUM; k++)
     {
-        Snake.set_joint_velocity(k, SPEED_K*get_genome().calculate_torque(k, time), 0, dt, alpha);
+        Snake.set_joint_velocity(k, SPEED_K*get_genome().calculate_torqueH(k, time), get_genome().calculate_torqueV(k, time), dt, alpha);
     }
 }
 

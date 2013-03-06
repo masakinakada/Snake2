@@ -7,7 +7,7 @@
 //
 
 #include "Snake.h"
-#define INITIAL_POS 1.5
+#define INITIAL_POS 3.5
 #include <iostream>
 
 
@@ -36,6 +36,31 @@ void Muscle::muscleController(int horizontal_torque, int verticle_torque , float
     else if(horizontal_torque== -2){
         UpdateRestShape(dt, alpha, RELEASE_LEFT);
 
+        //std::cout<<"Segment #"<<segment_num<<": Release Left"<<std::endl;
+    }
+    
+    
+    if(verticle_torque==2){
+        UpdateRestShape(dt, alpha, SHRINK_UP);
+        
+        //std::cout<<"Segment #"<<segment_num<<": Shrink Right"<<std::endl;
+    }
+    else if(verticle_torque==1)
+    {
+        UpdateRestShape(dt, alpha, RELEASE_UP);
+        
+        //std::cout<<"Segment #"<<segment_num<<": Release Right"<<std::endl;
+        
+    }
+    else if(verticle_torque == -1)
+    {
+        UpdateRestShape(dt, alpha, SHRINK_DOWN);
+        
+        //std::cout<<"Segment #"<<segment_num<<": Shrink Left"<<std::endl;
+    }
+    else if(verticle_torque== -2){
+        UpdateRestShape(dt, alpha, RELEASE_DOWN);
+        
         //std::cout<<"Segment #"<<segment_num<<": Release Left"<<std::endl;
     }
    
@@ -74,8 +99,7 @@ void Snake::SetWorld(World* a_world){
 
 void Snake::set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha)
 {
-   
-     m_muscles[muscle_num].muscleController(horizontal_torque, verticle_torque, dt, alpha, 0);
+    m_muscles[muscle_num].muscleController(horizontal_torque, verticle_torque, dt, alpha, 0);
     
 }
 
