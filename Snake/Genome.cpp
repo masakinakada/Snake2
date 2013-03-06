@@ -13,7 +13,12 @@
 #include <ctime>
 #include <cmath>
 #include <iostream>
-#include "Genome.h"
+#include "Genome.h"i
+
+
+#ifndef M_PI
+#  define M_PI  3.14159265358979323846
+#endif
 //#include <array>
 
 
