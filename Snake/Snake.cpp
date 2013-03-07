@@ -7,7 +7,7 @@
 //
 
 #include "Snake.h"
-#define INITIAL_POS 3.5
+#define INITIAL_POS 5.5
 #include <iostream>
 
 
@@ -15,6 +15,7 @@
 
 void Muscle::muscleController(int horizontal_torque, int verticle_torque , float dt, float alpha, int segment_num)
 {
+	/*
     if(horizontal_torque==2){
        UpdateRestShape(dt, alpha, SHRINK_RIGHT);
 
@@ -39,7 +40,7 @@ void Muscle::muscleController(int horizontal_torque, int verticle_torque , float
         //std::cout<<"Segment #"<<segment_num<<": Release Left"<<std::endl;
     }
     
-    
+   */
     if(verticle_torque==2){
         UpdateRestShape(dt, alpha, SHRINK_UP);
         

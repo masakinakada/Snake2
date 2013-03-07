@@ -13,7 +13,7 @@
 #include <ctime>
 #include <cmath>
 #include <iostream>
-#include "Genome.h"i
+#include "Genome.h"
 
 
 #ifndef M_PI
@@ -56,7 +56,7 @@ void Genome::randomize()
     for (int i=0; i<GENOME_NUM; i++) {
         switch (i) {
             case 0:
-                genomeData[i] = fRand(0.1, 10.0);
+                genomeData[i] = fRand(0.001, 10.0);
                 break;
             case 1:
                 genomeData[i] = fRand(0.1, 2*M_PI);
@@ -99,7 +99,7 @@ int Genome::calculate_torqueH(int k, float time)
 
 int Genome::calculate_torqueV(int k, float time)
 {
-    float sin_value = 2*(sin(genomeData[0] * time+ k * genomeData[1]) + genomeData[2]);
+    float sin_value = 2*(sin(genomeData[0] * time+ k * genomeData[1] + genomeData[2]));
     if(sin_value>1){
         return 2;
     }
