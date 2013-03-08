@@ -72,7 +72,7 @@ void GA::iterate(float time, float dt)
     accumulated_time+=dt;
     for(int i=0;i<SEATS_NUM;i++)
     {
-        seats[i]->control_robot(*gaSnake[i], time, dt, 2.0);
+        seats[i]->control_robot(*gaSnake[i], time, dt, 0.5);
     }
     if(accumulated_time>10.0)
     {
@@ -148,6 +148,7 @@ void GA::breadMonkeys(int runN)
             seats[SEATS_NUM/2+i]->mutate_genome(seats[SEATS_NUM/2+i]->get_number(), seats[SEATS_NUM/2+i]->get_generation());
             
             seats[SEATS_NUM/2+i]->increase_generation();
+            cout<< "evolve monkey # " << seats[SEATS_NUM/2+i]->get_number()<< " in generation #"<< seats[SEATS_NUM/2+i]->get_generation() <<endl;
         }else{
             cout <<"bread Monkey#"<<seats[i]->get_number()<<" and Monkey #" <<seats[0]->get_number()<<", set the breaded genome to Monkey #"<< seats[SEATS_NUM/2+i]->get_number()<<endl;
             seats[i]->bread_monkeys(*seats[0], *seats[SEATS_NUM/2+i], runN);
@@ -155,6 +156,7 @@ void GA::breadMonkeys(int runN)
             cout<<"Mutate Monkey #" <<seats[SEATS_NUM/2+i]->get_number()<<endl;
             seats[SEATS_NUM/2+i]->mutate_genome(seats[SEATS_NUM/2+i]->get_number(), seats[SEATS_NUM/2+i]->get_generation());
             seats[SEATS_NUM/2+i]->increase_generation();
+            cout<< "evolve monkey # " << seats[SEATS_NUM/2+i]->get_number()<< " in generation #"<< seats[SEATS_NUM/2+i]->get_generation() <<endl;
         }
     }
     

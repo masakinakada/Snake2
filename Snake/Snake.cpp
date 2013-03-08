@@ -7,7 +7,7 @@
 //
 
 #include "Snake.h"
-#define INITIAL_POS 5.5
+#define INITIAL_POS 2.5
 #include <iostream>
 
 
@@ -15,7 +15,7 @@
 
 void Muscle::muscleController(int horizontal_torque, int verticle_torque , float dt, float alpha, int segment_num)
 {
-	/*
+	
     if(horizontal_torque==2){
        UpdateRestShape(dt, alpha, SHRINK_RIGHT);
 
@@ -40,7 +40,7 @@ void Muscle::muscleController(int horizontal_torque, int verticle_torque , float
         //std::cout<<"Segment #"<<segment_num<<": Release Left"<<std::endl;
     }
     
-   */
+   
     if(verticle_torque==2){
         UpdateRestShape(dt, alpha, SHRINK_UP);
         
@@ -124,8 +124,8 @@ void Snake::init(int snake_num){
 
 void Snake::initPhysics(int snake_num){
 	
-	Eigen::Vector3i deform_res(2,2,2);double youngs_modulus = 2000;
-	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(0.5,2,2); double deform_length = 2;
+	Eigen::Vector3i deform_res(3,2,2);double youngs_modulus = 2000;
+	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(0.5,2,2); double deform_length = 3;
 	std::vector<Node*> temp_nodes;
 
 	//create the head bone
@@ -161,7 +161,7 @@ void Snake::initPhysics(int snake_num){
 
 void Snake::Reinit(int snake_num){
 
-	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(0.5,2,2); double deform_length = 2;
+	Eigen::Vector3f temp_position;Eigen::Vector3f rigid_size(0.5,2,2); double deform_length = 3;
 	std::vector<Node*> temp_nodes;
 
 	//create the head bone

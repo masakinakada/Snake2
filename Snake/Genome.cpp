@@ -56,10 +56,10 @@ void Genome::randomize()
     for (int i=0; i<GENOME_NUM; i++) {
         switch (i) {
             case 0:
-                genomeData[i] = fRand(0.001, 10.0);
+                genomeData[i] = fRand(0.01, 2.0);
                 break;
             case 1:
-                genomeData[i] = fRand(0.1, 2*M_PI);
+                genomeData[i] = fRand(0.0, 2*M_PI);
                 break;
             case 2:
                 genomeData[i] = fRand(0, 2*M_PI);
@@ -81,6 +81,29 @@ void Genome::randomize()
 
     monkey_number++;
 }
+
+void Genome::mutate(int num, int generation)
+{
+    int n = iRand(0,GENOME_NUM*10);
+    switch (n) {
+        case 0:
+            genomeData[n] = fRand(0.01, 2.0);
+            break;
+        case 1:
+            genomeData[n] = fRand(0.0, 2*M_PI);
+            break;
+        case 2:
+            genomeData[n] = fRand(0, 2*M_PI);
+            break;
+        default:
+            break;
+    }
+    
+    if(n<GENOME_NUM){
+        cout<<"gene # " << n << " mutated for Monkey #" << num <<" of generation " << generation << endl;
+    }
+}
+
 
 int Genome::calculate_torqueH(int k, float time)
 {
@@ -108,31 +131,10 @@ int Genome::calculate_torqueV(int k, float time)
     }else if(sin_value>-1){
         return -1;
     }else{
-        return -2;
+        return -21;
     }
 }
 
-void Genome::mutate(int num, int generation)
-{
-    int n = iRand(0,GENOME_NUM*10);
-    switch (n) {
-        case 0:
-            genomeData[n] = fRand(0.1, 10.0);
-            break;
-        case 1:
-            genomeData[n] = fRand(0.1, 2*M_PI);
-            break;
-        case 2:
-            genomeData[n] = fRand(0, 2*M_PI);
-            break;
-        default:
-            break;
-    }
-    
-    if(n<GENOME_NUM){
-        cout<<"gene # " << n << " mutated for Monkey #" << num <<" of generation " << generation << endl;
-    }
-}
 
 void Genome::crossover(Genome parent1, Genome parent2)
 {
