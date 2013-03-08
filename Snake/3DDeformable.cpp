@@ -112,7 +112,7 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
 
 void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 	
-	double threshold = 0.50;
+	double threshold = 0.45;
 	//experiment 
 	switch(type){
 	case SHRINK_LEFT:
@@ -487,7 +487,7 @@ void Deformable3D::HandleCollision(Node& a_node){
 	Eigen::Vector3f surface_normal;
 	Eigen::Vector3f prev_momentom_n, prev_momentom_v, new_momentom_n, new_momentom_v;
 	Eigen::Vector3f new_velocity_n_vector;
-	double friction_ness = 1.25;//from 0~2 is enough
+	double friction_ness = 1.35;//from 0~2 is enough
 	double rebouce_ness = 0.2;
     for (unsigned int i = 0; i< m_world->List_of_Object.size(); i++) {
 		if(m_world->List_of_Object[i] == this)
@@ -504,7 +504,7 @@ void Deformable3D::HandleCollision(Node& a_node){
 					
 					prev_momentom_n = a_node.m_Mass*a_node.m_Velocity.dot(surface_normal)*surface_normal;
 					prev_momentom_v = a_node.m_Mass*a_node.m_Velocity - prev_momentom_n;
-					friction_ness = (1 - prev_momentom_v.normalized().dot(m_Direction))*0.5 + 1.25;
+					friction_ness = (1 - prev_momentom_v.normalized().dot(m_Direction))*0.5 + 1.35;
 					new_velocity_n_vector = prev_momentom_v.normalized();
 
 					new_momentom_n = -rebouce_ness* prev_momentom_n;
