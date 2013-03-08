@@ -56,7 +56,7 @@ void Genome::randomize()
     for (int i=0; i<GENOME_NUM; i++) {
         switch (i) {
             case 0:
-                genomeData[i] = fRand(0.01, 2.0);
+                genomeData[i] = fRand(0.1, 2.0);
                 break;
             case 1:
                 genomeData[i] = fRand(0.0, 2*M_PI);
@@ -87,7 +87,7 @@ void Genome::mutate(int num, int generation)
     int n = iRand(0,GENOME_NUM*10);
     switch (n) {
         case 0:
-            genomeData[n] = fRand(0.01, 2.0);
+            genomeData[n] = fRand(0.1, 2.0);
             break;
         case 1:
             genomeData[n] = fRand(0.0, 2*M_PI);
