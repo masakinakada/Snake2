@@ -45,6 +45,8 @@ int FRAME_COUNT = 0;
 GLfloat CursorX;
 GLfloat CursorY;//Curosr Position
 
+bool drawFlag = true;
+
 //declaration of function
 
 void initScene();
@@ -58,3 +60,4 @@ void cursorCallback(int x, int y);
 void cursorCallback(int x, int y);
 void mouseCallback(int button, int state, int x, int y);
 void idleCallback();
+void writeBestGenome();

@@ -37,6 +37,9 @@ void initScene(){
     
 	reinitScene();
     
+    //change initial camera position
+    Pentax.m_zoom  = Pentax.m_zoom  * 0.1;
+    
 	std::cout<<"Starting Animation..."<<std::endl;
     
     
@@ -87,6 +90,7 @@ void keyboardCallback(unsigned char key, int x, int y){
     
 	if ( key == EscKey || key == 'q' || key == 'Q' )
     {
+        writeBestGenome();
         exit(0);
     }
     if( key == 's'|| key == 'S')
@@ -115,13 +119,24 @@ void keyboardCallback(unsigned char key, int x, int y){
         reinitScene();
         glutSwapBuffers();
     }
+    
+    if (key =='d'){
+        drawFlag = !drawFlag;
+        std::cout<<"Stop Drawing on display. Keep iteration for learning. this should run fater"<<std::endl;
+    }
+}
+
+void writeBestGenome(){
+    ga->writeBest();
 }
 
 void displayCallback(){
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    drawScene();
-    glutSwapBuffers();
-    
+    if(drawFlag){
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        drawScene();
+        glutSwapBuffers();
+    }
+
 }
 
 void reshapeCallback(int w, int h){

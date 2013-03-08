@@ -8,6 +8,7 @@
 
 #include "Snake.h"
 #define INITIAL_POS 2.5
+#define INITIAL_Y_OFFSET 20
 #include <iostream>
 
 
@@ -129,7 +130,7 @@ void Snake::initPhysics(int snake_num){
 	std::vector<Node*> temp_nodes;
 
 	//create the head bone
-	m_bones[0].Init(1.0, Eigen::Vector3f(0,INITIAL_POS,snake_num*20), rigid_size, Eigen::Vector3f(1,0,0));
+	m_bones[0].Init(1.0, Eigen::Vector3f(0,INITIAL_POS,snake_num*INITIAL_Y_OFFSET), rigid_size, Eigen::Vector3f(1,0,0));
     
     float density = 1.0;
 
@@ -165,7 +166,7 @@ void Snake::Reinit(int snake_num){
 	std::vector<Node*> temp_nodes;
 
 	//create the head bone
-	m_bones[0].Reinit(Eigen::Vector3f(0,INITIAL_POS,snake_num*20));
+	m_bones[0].Reinit(Eigen::Vector3f(0,INITIAL_POS,snake_num*INITIAL_Y_OFFSET));
 
 	for(int i = 0; i < m_num_segment - 1; i++)
 	{
@@ -190,7 +191,7 @@ void Snake::Reinit(int snake_num){
 
 }
 
-float Snake::getDistance()
+float Snake::getDistance(int segment_ID)
 {
 	//TODO: seems too simple
     
@@ -201,7 +202,10 @@ float Snake::getDistance()
     //also take average of all segmentds so that we have whole body moving forward
     float distance = 0;
     for (int i=0; i<m_num_segment; i++) {
-        distance-=m_bones[i].m_Center[0];
+        
+        //snake is moving toward negative x axis. there is direcional friction so should not chnage. or change both here and direction of friction
+        distance += -(m_bones[i].m_Center[0]);
+        distance += (m_bones[i].m_Center[1]-segment_ID*INITIAL_Y_OFFSET);
     }
     distance = distance/m_num_segment;
    return distance;

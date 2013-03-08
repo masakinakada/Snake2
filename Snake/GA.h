@@ -12,7 +12,7 @@
 #include "Monkey.h"
 #include "Snake.h"
 
-#define SEATS_NUM 4
+#define SEATS_NUM 8
 #define MONKEY_NUM 15
 
 
@@ -27,12 +27,13 @@ public:
    
     void iterate(float time, float dt);
     void changeDrivers();
-    void getDistance();
+    //void getDistance();
     void compareDistance();
     void breadMonkeys( int runN);
     void sortByDistance();
     int iRand(int floor, int ceiling);
     int* shuffleCard();
+    void writeBest();
     
 private:
     Monkey* monkeys[15];

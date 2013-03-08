@@ -48,7 +48,7 @@ public:
     struct links get_root();
     void set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha);
     void deactivate_friction();
-    float getDistance();
+    float getDistance(int segment_ID);
     void destroySnake();
     void Draw(int type, const Camera& camera, const Light& light);//Update data on GPU's buffer and draw the vertexs, rotate clockwise around z with speed
 	void UpdateAll(double dt);

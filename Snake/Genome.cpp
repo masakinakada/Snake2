@@ -131,7 +131,7 @@ int Genome::calculate_torqueV(int k, float time)
     }else if(sin_value>-1){
         return -1;
     }else{
-        return -21;
+        return -2;
     }
 }
 
