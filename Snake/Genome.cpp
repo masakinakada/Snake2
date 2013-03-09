@@ -57,7 +57,7 @@ void Genome::randomize()
         switch (i) {
             case 0:
                 //frequency is optimal around 4.0. this could be chnaged, think more if necessary
-                genomeData[i] = fRand(4.5, 8.5);
+                genomeData[i] = fRand(5.5, 9.5);
                 break;
             case 1:
                 //45 degree is the one cicle. 0-1 with sin function. adjacent one is one phase different at most, and should have same phase most of the time.
@@ -91,7 +91,7 @@ void Genome::mutate(int num, int generation)
     int n = iRand(0,GENOME_NUM*1.1);
     switch (n) {
         case 0:
-            genomeData[n] = fRand(4.5, 8.5);
+            genomeData[n] = fRand(5.5, 9.5);
             break;
         case 1:
             //45 degree is the one cicle. 0-1 with sin function. adjacent one is one phase different at most, and should have same phase most of the time.

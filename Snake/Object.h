@@ -16,7 +16,7 @@
 
 #include <vector>
 
-#define GRAVITY_CONSTANT 9.8
+#define GRAVITY_CONSTANT 4.9
 
 #ifndef M_PI
 #  define M_PI  3.14159265358979323846
