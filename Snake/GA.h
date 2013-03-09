@@ -13,7 +13,7 @@
 #include "Snake.h"
 
 #define SEATS_NUM 8
-#define MONKEY_NUM 15
+#define MONKEY_NUM 24
 
 
 
@@ -36,7 +36,7 @@ public:
     void writeBest();
     
 private:
-    Monkey* monkeys[15];
+    Monkey* monkeys[MONKEY_NUM];
     Monkey* seats[SEATS_NUM];
     Snake* gaSnake[SEATS_NUM];
     int card[MONKEY_NUM];

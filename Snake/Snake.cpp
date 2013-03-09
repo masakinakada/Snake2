@@ -7,7 +7,7 @@
 //
 
 #include "Snake.h"
-#define INITIAL_POS 2.5
+#define INITIAL_POS 5.5
 #define INITIAL_Y_OFFSET 20
 #include <iostream>
 
@@ -205,7 +205,7 @@ float Snake::getDistance(int segment_ID)
         
         //snake is moving toward negative x axis. there is direcional friction so should not chnage. or change both here and direction of friction
         distance += -(m_bones[i].m_Center[0]);
-        distance += (m_bones[i].m_Center[1]-segment_ID*INITIAL_Y_OFFSET);
+        distance += (m_bones[i].m_Center[2]-segment_ID*INITIAL_Y_OFFSET);
     }
     distance = distance/m_num_segment;
    return distance;

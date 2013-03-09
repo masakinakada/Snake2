@@ -230,7 +230,7 @@ void idleCallback(){
 	   
 	}
     
-	if(FRAME_TIME > 0.03)//33 frames per second
+	if(FRAME_TIME > 0.04)//25 frames per second
 	{
 		glutPostRedisplay(); //draw new frame
 		FRAME_TIME = 0;

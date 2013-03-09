@@ -56,10 +56,14 @@ void Genome::randomize()
     for (int i=0; i<GENOME_NUM; i++) {
         switch (i) {
             case 0:
-                genomeData[i] = fRand(0.1, 2.0);
+                //frequency is optimal around 4.0. this could be chnaged, think more if necessary
+                genomeData[i] = fRand(4.5, 8.5);
                 break;
             case 1:
-                genomeData[i] = fRand(0.0, 2*M_PI);
+                //45 degree is the one cicle. 0-1 with sin function. adjacent one is one phase different at most, and should have same phase most of the time.
+                //adjacent ones cannot have the differnece more than one phase to make the periodic pattern
+                // new change: at leaset two of the adjacent ones are in the same phase
+                genomeData[i] = fRand(0.0, M_PI/4);
                 break;
             case 2:
                 genomeData[i] = fRand(0, 2*M_PI);
@@ -84,13 +88,16 @@ void Genome::randomize()
 
 void Genome::mutate(int num, int generation)
 {
-    int n = iRand(0,GENOME_NUM*10);
+    int n = iRand(0,GENOME_NUM*1.1);
     switch (n) {
         case 0:
-            genomeData[n] = fRand(0.1, 2.0);
+            genomeData[n] = fRand(4.5, 8.5);
             break;
         case 1:
-            genomeData[n] = fRand(0.0, 2*M_PI);
+            //45 degree is the one cicle. 0-1 with sin function. adjacent one is one phase different at most, and should have same phase most of the time.
+            //adjacent ones cannot have the differnece more than one phase to make the periodic pattern
+            // new change: at leaset two of the adjacent ones are in the same phase
+            genomeData[n] = fRand(0.0, M_PI/4);
             break;
         case 2:
             genomeData[n] = fRand(0, 2*M_PI);
@@ -108,12 +115,13 @@ void Genome::mutate(int num, int generation)
 int Genome::calculate_torqueH(int k, float time)
 {
     float sin_value = 2*(sin(genomeData[0] * time+ k * genomeData[1]));
-    if(sin_value>1){
+    //float sin_value = 2*(sin(4.36899 * time + k * 0.0443914));
+    if(sin_value>sqrt(2)){
         return 2;
     }
     else if(sin_value>0){
         return 1;
-    }else if(sin_value>-1){
+    }else if(sin_value>-sqrt(2)){
         return -1;
     }else{
         return -2;
@@ -123,12 +131,14 @@ int Genome::calculate_torqueH(int k, float time)
 int Genome::calculate_torqueV(int k, float time)
 {
     float sin_value = 2*(sin(genomeData[0] * time+ k * genomeData[1] + genomeData[2]));
-    if(sin_value>1){
+    //float sin_value = 2*(sin(4.36899 * time + k * 0.0443914 + 5.94878));
+    
+    if(sin_value>sqrt(2)){
         return 2;
     }
     else if(sin_value>0){
         return 1;
-    }else if(sin_value>-1){
+    }else if(sin_value>-sqrt(2)){
         return -1;
     }else{
         return -2;

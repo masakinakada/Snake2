@@ -97,7 +97,7 @@ void GA::iterate(float time, float dt)
     accumulated_time+=dt;
     for(int i=0;i<SEATS_NUM;i++)
     {
-        seats[i]->control_robot(*gaSnake[i], time, dt, 1.0);
+        seats[i]->control_robot(*gaSnake[i], accumulated_time, dt, 2.0);
     }
     if(accumulated_time>10.0)
     {
@@ -129,7 +129,7 @@ void GA::changeDrivers()
         }
         
         //termination condition. if they move more than 300. we stop the simulation and return the best individual
-        if(seats[i]->get_distance()>50){
+        if(seats[i]->get_distance()>100){
             writeBest();
             exit(0);
         }
