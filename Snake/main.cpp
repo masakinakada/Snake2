@@ -33,7 +33,7 @@ void initScene(){
     
     std::cout<<"Setting up the World..."<<std::endl;
     
-	myTerrain = new Terrain(Eigen::Vector2f(500,500), Eigen::Vector2i(100,100), 100, TERRAIN_FLAT);
+	myTerrain = new Terrain(Eigen::Vector2f(500,500), Eigen::Vector2i(100,100), 100, TERRAIN_RANDOM);
     
 	reinitScene();
     
