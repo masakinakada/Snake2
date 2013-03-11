@@ -8,8 +8,8 @@
 
 #ifndef test_Genome_h
 #define test_Genome_h
-#define MUSCLE_NUM 16 
-#define GENOME_NUM 3
+#define MUSCLE_NUM 25 
+#define GENOME_NUM 4
 
 class Genome
 {

@@ -33,12 +33,12 @@ void initScene(){
     
     std::cout<<"Setting up the World..."<<std::endl;
     
-	myTerrain = new Terrain(Eigen::Vector2f(500,500), Eigen::Vector2i(100,100), 100, TERRAIN_RANDOM);
+	myTerrain = new Terrain(Eigen::Vector2f(500,500), Eigen::Vector2i(100,100), 100, TERRAIN_FLAT);
     
 	reinitScene();
     
     //change initial camera position
-    Pentax.m_zoom  = Pentax.m_zoom  * 0.1;
+    Pentax.m_zoom  = Pentax.m_zoom  * 0.25;
     
 	std::cout<<"Starting Animation..."<<std::endl;
     
@@ -225,12 +225,12 @@ void idleCallback(){
     
 	if(STOP == -1){
 
-		myWorld->Update(0.01);//real dt for physics is 1/2000, look inside.
-		ga->iterate(TIME, 0.01);//dt for ga is 1/100
+		myWorld->Update(0.015);//real dt for physics is 1/2000, look inside.
+		ga->iterate(TIME, 0.015);//dt for ga is 1/100
 	   
 	}
     
-	if(FRAME_TIME > 0.04)//25 frames per second
+	if(FRAME_TIME > 0.05)//20 frames per second
 	{
 		glutPostRedisplay(); //draw new frame
 		FRAME_TIME = 0;

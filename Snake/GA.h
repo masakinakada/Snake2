@@ -12,8 +12,8 @@
 #include "Monkey.h"
 #include "Snake.h"
 
-#define SEATS_NUM 8
-#define MONKEY_NUM 24
+#define SEATS_NUM 4
+#define MONKEY_NUM 16
 
 
 

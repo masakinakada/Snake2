@@ -68,6 +68,9 @@ void Genome::randomize()
             case 2:
                 genomeData[i] = fRand(0, 2*M_PI);
                 break;
+            case 3:
+                genomeData[i] = fRand(1.4, 1.8);
+                break;
             default:
                 break;
         }
@@ -81,6 +84,7 @@ void Genome::randomize()
     {
         
         cout<<i<<"th segment:" <<" sin("<<genomeData[0] <<"*("<<"t) + " <<genomeData[1] <<"*" <<i <<") "<<endl;
+        cout<<"apha = " <<genomeData[3]<<endl;
     }
 
     monkey_number++;
@@ -101,6 +105,9 @@ void Genome::mutate(int num, int generation)
             break;
         case 2:
             genomeData[n] = fRand(0, 2*M_PI);
+            break;
+        case 3:
+            genomeData[n] = fRand(1.4, 1.8);
             break;
         default:
             break;

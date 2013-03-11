@@ -14,8 +14,8 @@
 #include "GA.h"
 
 //Global Variables
-int Window_Width = 1600;
-int Window_Height = 1080;
+int Window_Width = 1024;
+int Window_Height = 768;
 
 int Button = -1 ;
 int PrevY = 0 ;
