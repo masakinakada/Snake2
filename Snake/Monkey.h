@@ -27,7 +27,7 @@ public:
     Genome get_genome();
     void mutate_genome(int num, int generation);
     void bread_monkeys(Monkey otherMonkey, Monkey child, int runN);
-    void control_robot(Snake Snake, float time, float dt, float alpha);
+    void control_robot(Snake Snake, float time, float dt);
     void set_distance(float value);
     float get_distance();
 private:

@@ -97,7 +97,7 @@ void GA::iterate(float time, float dt)
     accumulated_time+=dt;
     for(int i=0;i<SEATS_NUM;i++)
     {
-        seats[i]->control_robot(*gaSnake[i], accumulated_time, dt, seats[i]->get_genome().get_genomeData(3));
+        seats[i]->control_robot(*gaSnake[i], accumulated_time, dt);
     }
     if(accumulated_time>10.0)
     {

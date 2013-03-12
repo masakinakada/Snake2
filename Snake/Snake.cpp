@@ -14,54 +14,54 @@
 
 
 
-void Muscle::muscleController(int horizontal_torque, int verticle_torque , float dt, float alpha, int segment_num)
+void Muscle::muscleController(int horizontal_torque, int verticle_torque , float dt, float alpha1, float alpha2, int segment_num)
 {
 	
     if(horizontal_torque==2){
-       UpdateRestShape(dt, alpha, SHRINK_RIGHT);
+       UpdateRestShape(dt, alpha1, SHRINK_RIGHT);
 
         //std::cout<<"Segment #"<<segment_num<<": Shrink Right"<<std::endl;
     }
     else if(horizontal_torque==1)
     {
-        UpdateRestShape(dt, alpha, RELEASE_RIGHT);
+        UpdateRestShape(dt, alpha1, RELEASE_RIGHT);
 
         //std::cout<<"Segment #"<<segment_num<<": Release Right"<<std::endl;
       
     }
     else if(horizontal_torque == -1)
     {
-       UpdateRestShape(dt, alpha, SHRINK_LEFT);
+       UpdateRestShape(dt, alpha1, SHRINK_LEFT);
 
         //std::cout<<"Segment #"<<segment_num<<": Shrink Left"<<std::endl;
     }
     else if(horizontal_torque== -2){
-        UpdateRestShape(dt, alpha, RELEASE_LEFT);
+        UpdateRestShape(dt, alpha1, RELEASE_LEFT);
 
         //std::cout<<"Segment #"<<segment_num<<": Release Left"<<std::endl;
     }
     
    
     if(verticle_torque==2){
-        UpdateRestShape(dt, alpha, SHRINK_UP);
+        UpdateRestShape(dt, alpha2, SHRINK_UP);
         
         //std::cout<<"Segment #"<<segment_num<<": Shrink Right"<<std::endl;
     }
     else if(verticle_torque==1)
     {
-        UpdateRestShape(dt, alpha, RELEASE_UP);
+        UpdateRestShape(dt, alpha2, RELEASE_UP);
         
         //std::cout<<"Segment #"<<segment_num<<": Release Right"<<std::endl;
         
     }
     else if(verticle_torque == -1)
     {
-        UpdateRestShape(dt, alpha, SHRINK_DOWN);
+        UpdateRestShape(dt, alpha2, SHRINK_DOWN);
         
         //std::cout<<"Segment #"<<segment_num<<": Shrink Left"<<std::endl;
     }
     else if(verticle_torque== -2){
-        UpdateRestShape(dt, alpha, RELEASE_DOWN);
+        UpdateRestShape(dt, alpha2, RELEASE_DOWN);
         
         //std::cout<<"Segment #"<<segment_num<<": Release Left"<<std::endl;
     }
@@ -99,9 +99,9 @@ void Snake::SetWorld(World* a_world){
 
 }
 
-void Snake::set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha)
+void Snake::set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha1, float alpha2)
 {
-    m_muscles[muscle_num].muscleController(horizontal_torque, verticle_torque, dt, alpha, 0);
+    m_muscles[muscle_num].muscleController(horizontal_torque, verticle_torque, dt, alpha1, alpha2, 0);
     
 }
 
@@ -154,6 +154,8 @@ void Snake::initPhysics(int snake_num){
 		m_bones[i+1].AttachNodes(temp_nodes);
 
 	}
+    
+    original_pos = m_bones[m_num_segment/2].m_Center[0];
 
 	//m_bones[0].m_fixed = true;
 	//m_bones[m_num_segment-1].m_fixed = true;
@@ -207,7 +209,7 @@ float Snake::getDistance(int segment_ID)
         distance += -(m_bones[i].m_Center[0]);
         distance += (m_bones[i].m_Center[2]-segment_ID*INITIAL_Y_OFFSET);
     }
-    distance = distance/m_num_segment;
+    distance = distance/m_num_segment+original_pos;
    return distance;
 
 }

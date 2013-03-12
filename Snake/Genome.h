@@ -8,8 +8,8 @@
 
 #ifndef test_Genome_h
 #define test_Genome_h
-#define MUSCLE_NUM 25 
-#define GENOME_NUM 4
+#define MUSCLE_NUM 26 
+#define GENOME_NUM 5
 
 class Genome
 {
@@ -24,6 +24,7 @@ public:
     void crossover(Genome parent1, Genome parent2);
     float fRand(float floor, float ceiling);
     int iRand(int floor, int ceiling);
+    void genomeGeneration(int i);
 };
 
 #endif

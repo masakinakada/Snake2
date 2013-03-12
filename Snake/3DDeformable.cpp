@@ -13,7 +13,7 @@
 #include "Object.h"
 #include "Terrain.h"
 
-#define FRICTION_OFFSET 1.5
+#define FRICTION_OFFSET 2.0
 
 typedef std::queue<Node*> NodeQueue;
 
@@ -114,7 +114,7 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
 
 void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 	
-	double threshold = 0.45;
+	double threshold = 0.35;
 	//experiment 
 	switch(type){
 	case SHRINK_LEFT:
@@ -516,25 +516,25 @@ void Deformable3D::HandleCollision(Node& a_node){
 					prev_momentom_n = a_node.m_Mass*a_node.m_Velocity.dot(surface_normal)*surface_normal;
 					prev_momentom_v = a_node.m_Mass*a_node.m_Velocity - prev_momentom_n;
                     
-                    
+                    /*
                     if(prev_momentom_v.normalized().dot(m_Direction)<0.0){
                         friction_ness = FRICTION_OFFSET+0.5;
                     }else{
                         friction_ness = (1 - prev_momentom_v.normalized().dot(m_Direction))*0.5 + FRICTION_OFFSET;
                     }
+                    */
                     
-                    /*
+                    
                     if(prev_momentom_v.normalized().dot(m_Direction)<0.0){
                         friction_ness = FRICTION_OFFSET;
                     }else if(prev_momentom_v.normalized().dot(m_Direction)==0.0){
                         friction_ness = 0.0;
                     }
                     else{
-                        friction_ness = 0.33*FRICTION_OFFSET;
+                        friction_ness = 0.30*FRICTION_OFFSET;
                     }
                     
-                        */
-                    
+                        
 					new_velocity_n_vector = prev_momentom_v.normalized();
 
 					new_momentom_n = -rebouce_ness* prev_momentom_n;

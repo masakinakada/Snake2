@@ -10,7 +10,7 @@
 class Sphere;
 class Millipede;
 
-enum TerrainType{TERRAIN_RANDOM, TERRAIN_FLAT, TERRAIN_TEST, TERRAIN_UPHILL};
+enum TerrainType{TERRAIN_RANDOM, TERRAIN_FLAT, TERRAIN_TEST, TERRAIN_UPHILL, TERRAIN_TUNNEL, TERRAIN_DOWNHILL};
 
 class Terrain:public Object{
 
