@@ -13,6 +13,8 @@
 #include "Object.h"
 #include "Terrain.h"
 
+#define FRICTION_OFFSET 2.0
+
 typedef std::queue<Node*> NodeQueue;
 
 Deformable3D::Deformable3D(){
@@ -112,7 +114,7 @@ void Deformable3D::Init(Eigen::Vector3i Num, float density,float youngs, float p
 
 void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 	
-	double threshold = 0.5;
+	double threshold = 0.35;
 	//experiment 
 	switch(type){
 	case SHRINK_LEFT:
@@ -181,13 +183,15 @@ void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 		break;
 	case RELEASE_LEFT:
 		m_accum_shrink_left -= alpha*dt;//total shrink decay term x(t) = x(0)*exp(-shrink_decay);
-		if(m_accum_shrink_left < 0)
+		if(m_accum_shrink_left < -threshold)
 		{
-			m_accum_shrink_left = 0;
+			m_accum_shrink_left = -threshold;
+            /*
 			for(int i =0; i < m_Rest_Mesh->m_Num_Node; i++)
 				{
 					m_Rest_Mesh->m_Nodes[i].m_Position = m_Init_Mesh->m_Nodes[i].m_Position;
 				}
+             */
 		}
 		else{
 				double z_ratio;
@@ -201,13 +205,16 @@ void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 		break;
 	case RELEASE_RIGHT:
 		m_accum_shrink_right -= alpha*dt;//total shrink decay term x(t) = x(0)*exp(-shrink_decay);
-		if(m_accum_shrink_right < 0)
+		if(m_accum_shrink_right < -threshold)
 		{
 			m_accum_shrink_right = 0;
-			for(int i =0; i < m_Rest_Mesh->m_Num_Node; i++)
+		
+            /*
+            for(int i =0; i < m_Rest_Mesh->m_Num_Node; i++)
 				{
 					m_Rest_Mesh->m_Nodes[i].m_Position = m_Init_Mesh->m_Nodes[i].m_Position;
 				}
+             */
 		}
 		else{
 				double z_ratio;
@@ -221,13 +228,15 @@ void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 		break;
 	case RELEASE_UP:
 		m_accum_shrink_up -= alpha*dt;//total shrink decay term x(t) = x(0)*exp(-shrink_decay);
-		if(m_accum_shrink_up < 0)
+		if(m_accum_shrink_up < -threshold)
 		{
-			m_accum_shrink_up = 0;
+			m_accum_shrink_up = -threshold;
+            /*
 			for(int i =0; i < m_Rest_Mesh->m_Num_Node; i++)
 				{
 					m_Rest_Mesh->m_Nodes[i].m_Position = m_Init_Mesh->m_Nodes[i].m_Position;
 				}
+             */
 		}
 		else{
 				double y_ratio;
@@ -241,13 +250,15 @@ void Deformable3D::UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type){
 		break;
 	case RELEASE_DOWN:
 		m_accum_shrink_down -= alpha*dt;//total shrink decay term x(t) = x(0)*exp(-shrink_decay);
-		if(m_accum_shrink_down < 0)
+		if(m_accum_shrink_down < -threshold)
 		{
-			m_accum_shrink_down = 0;
+			m_accum_shrink_down = -threshold;
+            /*
 			for(int i =0; i < m_Rest_Mesh->m_Num_Node; i++)
 				{
 					m_Rest_Mesh->m_Nodes[i].m_Position = m_Init_Mesh->m_Nodes[i].m_Position;
 				}
+             */
 		}
 		else{
 				double y_ratio;
@@ -487,7 +498,7 @@ void Deformable3D::HandleCollision(Node& a_node){
 	Eigen::Vector3f surface_normal;
 	Eigen::Vector3f prev_momentom_n, prev_momentom_v, new_momentom_n, new_momentom_v;
 	Eigen::Vector3f new_velocity_n_vector;
-	double friction_ness = 1.0;//from 0~2 is enough
+	double friction_ness = FRICTION_OFFSET;//from 0~2 is enough
 	double rebouce_ness = 0.2;
     for (unsigned int i = 0; i< m_world->List_of_Object.size(); i++) {
 		if(m_world->List_of_Object[i] == this)
@@ -504,7 +515,26 @@ void Deformable3D::HandleCollision(Node& a_node){
 					
 					prev_momentom_n = a_node.m_Mass*a_node.m_Velocity.dot(surface_normal)*surface_normal;
 					prev_momentom_v = a_node.m_Mass*a_node.m_Velocity - prev_momentom_n;
-					friction_ness = (1 - prev_momentom_v.normalized().dot(m_Direction))*0.5 + 1.0;
+                    
+                    /*
+                    if(prev_momentom_v.normalized().dot(m_Direction)<0.0){
+                        friction_ness = FRICTION_OFFSET+0.5;
+                    }else{
+                        friction_ness = (1 - prev_momentom_v.normalized().dot(m_Direction))*0.5 + FRICTION_OFFSET;
+                    }
+                    */
+                    
+                    
+                    if(prev_momentom_v.normalized().dot(m_Direction)<0.0){
+                        friction_ness = FRICTION_OFFSET;
+                    }else if(prev_momentom_v.normalized().dot(m_Direction)==0.0){
+                        friction_ness = 0.0;
+                    }
+                    else{
+                        friction_ness = 0.30*FRICTION_OFFSET;
+                    }
+                    
+                        
 					new_velocity_n_vector = prev_momentom_v.normalized();
 
 					new_momentom_n = -rebouce_ness* prev_momentom_n;

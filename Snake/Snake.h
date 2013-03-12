@@ -30,7 +30,7 @@ class Muscle:public Deformable3D{
 public:
 	Muscle(){};
 	~Muscle(){};
-	void muscleController(int horizontal_torque, int verticle_torque, float dt, float alpha, int segment_num);
+	void muscleController(int horizontal_torque, int verticle_torque, float dt, float alpha1, float alpha2, int segment_num);
 
 public:
 	Bone* m_prev;
@@ -46,9 +46,9 @@ public:
     void Reinit(int snake_num);
 	void initPhysics(int snake_num);
     struct links get_root();
-    void set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha);
+    void set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha1, float alpha2);
     void deactivate_friction();
-    float getDistance();
+    float getDistance(int segment_ID);
     void destroySnake();
     void Draw(int type, const Camera& camera, const Light& light);//Update data on GPU's buffer and draw the vertexs, rotate clockwise around z with speed
 	void UpdateAll(double dt);
@@ -59,6 +59,7 @@ private:
 	int m_num_segment;
 	Bone* m_bones;
 	Muscle* m_muscles;
+    float original_pos;
 };
 
 

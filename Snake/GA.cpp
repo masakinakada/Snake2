@@ -7,7 +7,8 @@
 //
 
 #include "GA.h"
-
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 GA::GA(World* wWorld){
@@ -27,10 +28,34 @@ void GA::init(){
     }
 
     pickDrivers();
-    bestDistance = 0.0;
+    bestDistance = -100.0;
     bestGeneration = 0;
     bestRun = 0;
     runCount = 0;
+}
+
+void GA::writeBest(){
+    
+    if (runCount>0) {
+       
+        ofstream myfile;
+        myfile.open ("bestPopulation.txt");
+        myfile << "Writing best population.\n";
+        myfile << "best distance: ";
+        myfile << bestDistance << "\n";
+        myfile << "best generation: ";
+        myfile << bestGeneration <<"\n";
+        myfile << "best Run: ";
+        myfile << bestRun <<"\n";
+        myfile <<"best Genome" <<"\n";
+        for (int i=0; i<GENOME_NUM; i++) {
+            
+            myfile << bestDriver->get_genome().get_genomeData(i) <<", ";
+        }
+        myfile << "\n";
+        
+        myfile.close();
+    }
 }
 
 int GA::iRand(int floor, int ceiling)
@@ -72,7 +97,7 @@ void GA::iterate(float time, float dt)
     accumulated_time+=dt;
     for(int i=0;i<SEATS_NUM;i++)
     {
-        seats[i]->control_robot(*gaSnake[i], time, dt, 2.0);
+        seats[i]->control_robot(*gaSnake[i], accumulated_time, dt);
     }
     if(accumulated_time>10.0)
     {
@@ -88,8 +113,9 @@ void GA::changeDrivers()
     
     for(int i=0; i<SEATS_NUM; i++){
     	
-        seats[i]->set_distance(gaSnake[i]->getDistance());
+        seats[i]->set_distance(gaSnake[i]->getDistance(i));
         cout<<"Monkey #"<<seats[i]->get_number()<<" moved " <<seats[i]->get_distance()<<endl;
+        
         if(seats[i]->get_distance()>bestDistance){
             bestDistance = seats[i]->get_distance();
             bestDriver = seats[i];
@@ -100,6 +126,12 @@ void GA::changeDrivers()
             cout<<"new Best Driver: Monkey #"<<bestDriver->get_number()<<endl;
             cout<<"new Best Generation: "<<bestGeneration<<endl;
             cout<<"new Best Run count: "<<bestRun<<endl;
+        }
+        
+        //termination condition. if they move more than 300. we stop the simulation and return the best individual
+        if(seats[i]->get_distance()>100){
+            writeBest();
+            exit(0);
         }
         
         gaSnake[i]->Reinit(i);
@@ -148,6 +180,7 @@ void GA::breadMonkeys(int runN)
             seats[SEATS_NUM/2+i]->mutate_genome(seats[SEATS_NUM/2+i]->get_number(), seats[SEATS_NUM/2+i]->get_generation());
             
             seats[SEATS_NUM/2+i]->increase_generation();
+            cout<< "evolve monkey # " << seats[SEATS_NUM/2+i]->get_number()<< " in generation #"<< seats[SEATS_NUM/2+i]->get_generation() <<endl;
         }else{
             cout <<"bread Monkey#"<<seats[i]->get_number()<<" and Monkey #" <<seats[0]->get_number()<<", set the breaded genome to Monkey #"<< seats[SEATS_NUM/2+i]->get_number()<<endl;
             seats[i]->bread_monkeys(*seats[0], *seats[SEATS_NUM/2+i], runN);
@@ -155,6 +188,7 @@ void GA::breadMonkeys(int runN)
             cout<<"Mutate Monkey #" <<seats[SEATS_NUM/2+i]->get_number()<<endl;
             seats[SEATS_NUM/2+i]->mutate_genome(seats[SEATS_NUM/2+i]->get_number(), seats[SEATS_NUM/2+i]->get_generation());
             seats[SEATS_NUM/2+i]->increase_generation();
+            cout<< "evolve monkey # " << seats[SEATS_NUM/2+i]->get_number()<< " in generation #"<< seats[SEATS_NUM/2+i]->get_generation() <<endl;
         }
     }
     

@@ -14,8 +14,8 @@
 #include "GA.h"
 
 //Global Variables
-int Window_Width = 1600;
-int Window_Height = 1080;
+int Window_Width = 1024;
+int Window_Height = 768;
 
 int Button = -1 ;
 int PrevY = 0 ;
@@ -45,6 +45,8 @@ int FRAME_COUNT = 0;
 GLfloat CursorX;
 GLfloat CursorY;//Curosr Position
 
+bool drawFlag = true;
+
 //declaration of function
 
 void initScene();
@@ -58,3 +60,4 @@ void cursorCallback(int x, int y);
 void cursorCallback(int x, int y);
 void mouseCallback(int button, int state, int x, int y);
 void idleCallback();
+void writeBestGenome();

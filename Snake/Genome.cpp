@@ -46,6 +46,33 @@ int Genome::iRand(int floor, int ceiling)
     return v1;
 }
 
+void Genome::genomeGeneration(int i)
+{
+    switch (i) {
+        case 0:
+            //frequency is optimal around 4.0. this could be chnaged, think more if necessary
+            genomeData[i] = fRand(5.0, 8.5);
+            break;
+        case 1:
+            //45 degree is the one cicle. 0-1 with sin function. adjacent one is one phase different at most, and should have same phase most of the time.
+            //adjacent ones cannot have the differnece more than one phase to make the periodic pattern
+            // new change: at leaset two of the adjacent ones are in the same phase
+            genomeData[i] = fRand(0.0, M_PI/6);
+            break;
+        case 2:
+            genomeData[i] = fRand(0, 2*M_PI);
+            break;
+        case 3:
+            genomeData[i] = fRand(1.5, 2.0);
+            break;
+        case 4:
+            genomeData[i] = fRand(2.0, 2.5);
+            break;
+        default:
+            break;
+    }
+}
+
 void Genome::randomize()
 {
     static int monkey_number = 0;
@@ -54,20 +81,8 @@ void Genome::randomize()
     //for phase and velocity of sinosoid
     
     for (int i=0; i<GENOME_NUM; i++) {
-        switch (i) {
-            case 0:
-                genomeData[i] = fRand(0.001, 10.0);
-                break;
-            case 1:
-                genomeData[i] = fRand(0.1, 2*M_PI);
-                break;
-            case 2:
-                genomeData[i] = fRand(0, 2*M_PI);
-                break;
-            default:
-                break;
-        }
-            
+        
+        genomeGeneration(i);
         cout<<"new genome Data"<<"(w"<<i<<") =" << genomeData[i]<< endl;
     }
     //this is for amplitude of sinosoid
@@ -77,20 +92,33 @@ void Genome::randomize()
     {
         
         cout<<i<<"th segment:" <<" sin("<<genomeData[0] <<"*("<<"t) + " <<genomeData[1] <<"*" <<i <<") "<<endl;
+        cout<<"apha1 = " <<genomeData[3]<<", alpha2 = " << genomeData[4] <<endl;
     }
 
     monkey_number++;
 }
 
+void Genome::mutate(int num, int generation)
+{
+    int n = iRand(0,GENOME_NUM*1.1);
+    genomeGeneration(n);
+    
+    if(n<GENOME_NUM){
+        cout<<"gene # " << n << " mutated for Monkey #" << num <<" of generation " << generation << endl;
+    }
+}
+
+
 int Genome::calculate_torqueH(int k, float time)
 {
     float sin_value = 2*(sin(genomeData[0] * time+ k * genomeData[1]));
-    if(sin_value>1){
+    //float sin_value = 2*(sin(7.36899 * time + k * 0.143914));
+    if(sin_value>sqrt(2)){
         return 2;
     }
     else if(sin_value>0){
         return 1;
-    }else if(sin_value>-1){
+    }else if(sin_value>-sqrt(2)){
         return -1;
     }else{
         return -2;
@@ -100,39 +128,20 @@ int Genome::calculate_torqueH(int k, float time)
 int Genome::calculate_torqueV(int k, float time)
 {
     float sin_value = 2*(sin(genomeData[0] * time+ k * genomeData[1] + genomeData[2]));
-    if(sin_value>1){
+    //float sin_value = 2*(sin(7.36899 * time + k * 0.143914 + 5.94878));
+    
+    if(sin_value>sqrt(2)){
         return 2;
     }
     else if(sin_value>0){
         return 1;
-    }else if(sin_value>-1){
+    }else if(sin_value>-sqrt(2)){
         return -1;
     }else{
         return -2;
     }
 }
 
-void Genome::mutate(int num, int generation)
-{
-    int n = iRand(0,GENOME_NUM*10);
-    switch (n) {
-        case 0:
-            genomeData[n] = fRand(0.1, 10.0);
-            break;
-        case 1:
-            genomeData[n] = fRand(0.1, 2*M_PI);
-            break;
-        case 2:
-            genomeData[n] = fRand(0, 2*M_PI);
-            break;
-        default:
-            break;
-    }
-    
-    if(n<GENOME_NUM){
-        cout<<"gene # " << n << " mutated for Monkey #" << num <<" of generation " << generation << endl;
-    }
-}
 
 void Genome::crossover(Genome parent1, Genome parent2)
 {

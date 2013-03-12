@@ -36,7 +36,7 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
 	}
 
 	else if(a_type == TERRAIN_RANDOM){
-		double hill_height_max = 30;
+		double hill_height_max = 60;
 		double hill_center_x, hill_center_z, hill_height, hill_narrowness_x, hill_narrowness_z;
 		double dev_x, dev_z;
 
@@ -82,8 +82,28 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
 			for(int iz = 0; iz < (a_res_z+1); iz++){
 				m_height_data[ix*(a_res_z+1) + iz] = 0.0;
 			}
-
-	}
+    }else if(a_type == TERRAIN_UPHILL){
+    
+        float slope_coef = -0.5;
+        for(int ix = 0; ix < (a_res_x+1); ix++)
+            for(int iz = 0; iz < (a_res_z+1); iz++){
+                m_height_data[ix*(a_res_z+1) + iz] = slope_coef*ix - slope_coef*(a_res_x+1)/2;
+            }
+    }else if(a_type == TERRAIN_DOWNHILL){
+        
+        float slope_coef = 0.5;
+        for(int ix = 0; ix < (a_res_x+1); ix++)
+            for(int iz = 0; iz < (a_res_z+1); iz++){
+                m_height_data[ix*(a_res_z+1) + iz] = slope_coef*ix - slope_coef*(a_res_x+1)/2;
+            }
+    }
+    else if(a_type == TERRAIN_TUNNEL){
+        
+        for(int ix = (a_res_x/2-12); ix < (a_res_x/2-2); ix++)
+            for(int iz = 0; iz < (a_res_z+1); iz++){
+                m_height_data[ix*(a_res_z+1) + iz] = 5 - sqrt((ix-(a_res_x/2-7))*(ix-(a_res_x/2-7)));
+            }
+    }
 
 	GenerateNormals();
 	

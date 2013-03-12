@@ -33,9 +33,12 @@ void initScene(){
     
     std::cout<<"Setting up the World..."<<std::endl;
     
-	myTerrain = new Terrain(Eigen::Vector2f(500,500), Eigen::Vector2i(100,100), 100, TERRAIN_FLAT);
+	myTerrain = new Terrain(Eigen::Vector2f(500,500), Eigen::Vector2i(100,100), 100, TERRAIN_DOWNHILL);
     
 	reinitScene();
+    
+    //change initial camera position
+    Pentax.m_zoom  = Pentax.m_zoom  * 0.25;
     
 	std::cout<<"Starting Animation..."<<std::endl;
     
@@ -87,6 +90,7 @@ void keyboardCallback(unsigned char key, int x, int y){
     
 	if ( key == EscKey || key == 'q' || key == 'Q' )
     {
+        writeBestGenome();
         exit(0);
     }
     if( key == 's'|| key == 'S')
@@ -115,13 +119,24 @@ void keyboardCallback(unsigned char key, int x, int y){
         reinitScene();
         glutSwapBuffers();
     }
+    
+    if (key =='d'){
+        drawFlag = !drawFlag;
+        std::cout<<"Stop Drawing on display. Keep iteration for learning. this should run fater"<<std::endl;
+    }
+}
+
+void writeBestGenome(){
+    ga->writeBest();
 }
 
 void displayCallback(){
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    drawScene();
-    glutSwapBuffers();
-    
+    if(drawFlag){
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        drawScene();
+        glutSwapBuffers();
+    }
+
 }
 
 void reshapeCallback(int w, int h){
@@ -210,12 +225,12 @@ void idleCallback(){
     
 	if(STOP == -1){
 
-		myWorld->Update(0.01);//real dt for physics is 1/2000, look inside.
-		ga->iterate(TIME, 0.01);//dt for ga is 1/100
+		myWorld->Update(0.015);//real dt for physics is 1/2000, look inside.
+		ga->iterate(TIME, 0.015);//dt for ga is 1/100
 	   
 	}
     
-	if(FRAME_TIME > 0.03)//33 frames per second
+	if(FRAME_TIME > 0.05)//20 frames per second
 	{
 		glutPostRedisplay(); //draw new frame
 		FRAME_TIME = 0;
