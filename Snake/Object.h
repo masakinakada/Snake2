@@ -38,6 +38,7 @@ public:
     int m_Updated; //-1 or 1; alternate
     Eigen::Vector3f m_Velocity;
     Eigen::Vector3f m_Position;
+    Eigen::Vector3f m_prevPosition;
     Eigen::Vector3f m_Force;
     Eigen::Vector3f m_Normal;//the normal is averaged over the neighboring face
 
@@ -45,6 +46,7 @@ public:
     Node()
     {m_Mass = 0.0; m_Fixed = false; m_Updated  = -1; m_Velocity = Eigen::Vector3f(0.0,0.0,0.0); 
         m_Position = Eigen::Vector3f(0.0,0.0,0.0); m_Force = Eigen::Vector3f(0.0,-m_Mass*GRAVITY_CONSTANT,0.0);
+        m_prevPosition = Eigen::Vector3f(0.0,0.0,0.0);
     }//inline Default Constructor
     ~Node(){};
 

@@ -13,6 +13,7 @@
 #include "Light.h"
 #include "Eigen/Dense"
 #include "Object.h"
+#include "RigidCube.h"
 
 enum ACTUATE_TYPE{SHRINK_LEFT, SHRINK_RIGHT, RELEASE_LEFT, RELEASE_RIGHT,
 				  SHRINK_UP, SHRINK_DOWN, RELEASE_UP, RELEASE_DOWN,
@@ -52,14 +53,18 @@ private:
 	double m_accum_shrink_right;
 	double m_accum_shrink_up;
 	double m_accum_shrink_down;
+    
+    RigidCube *m_Bone1;
+    RigidCube *m_Bone2;
 
 public:
     Mesh3D* m_Mesh;
     Mesh3D* m_Rest_Mesh;
 	Mesh3D* m_Init_Mesh;
 	Eigen::Vector3f m_Direction;
+    
 public:
-     Deformable3D();
+    Deformable3D();
     ~Deformable3D();
 	 
 	 void Init(Eigen::Vector3i Num, float density, float youngs, float poisson, float gamma, Eigen::Vector3f position, Eigen::Vector3f size,Eigen::Vector3f color);//position is the center of the bottom plane
@@ -72,6 +77,8 @@ public:
 	 void UpdateRestShape(double dt, double alpha, ACTUATE_TYPE type);
 	 void Output2File(std::ofstream* filestream);
 	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+    
+    void setBones(RigidCube *bone1, RigidCube *bone2);
    
 
 private:

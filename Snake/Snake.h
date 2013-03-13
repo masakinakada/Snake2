@@ -60,6 +60,7 @@ private:
 	Bone* m_bones;
 	Muscle* m_muscles;
     float original_pos;
+    
 };
 
 

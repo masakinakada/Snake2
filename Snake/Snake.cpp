@@ -117,6 +117,7 @@ void Snake::init(int snake_num){
 		m_bones[i+1].m_prev = m_muscles + i;
 		m_muscles[i].m_prev = m_bones + i;
 		m_muscles[i].m_next = m_bones + (i+1);
+        m_muscles[i].setBones(m_bones+i, m_bones + (i+1));
 	}
 	m_bones[m_num_segment - 1].m_next = NULL;
 

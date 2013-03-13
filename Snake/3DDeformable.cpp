@@ -31,6 +31,12 @@ Deformable3D::~Deformable3D(){
 
 }
 
+void Deformable3D::setBones(RigidCube *bone1, RigidCube *bone2)
+{
+    m_Bone1 = bone1;
+    m_Bone2 = bone2;
+}
+
 void Deformable3D::Reinit(Eigen::Vector3f position){
 
 	Eigen::Vector3f mesh_size;
@@ -494,7 +500,9 @@ void Deformable3D::UpdateForce(){
 void Deformable3D::HandleCollision(Node& a_node){
 
 	Terrain* terrain;
-	Eigen::Vector3f material_point = a_node.m_Position;
+    m_Direction = (m_Bone1->m_Center - m_Bone2->m_Center);
+    //std::cout<<m_Direction <<std::endl;
+   Eigen::Vector3f material_point = a_node.m_Position;
 	Eigen::Vector3f surface_normal;
 	Eigen::Vector3f prev_momentom_n, prev_momentom_v, new_momentom_n, new_momentom_v;
 	Eigen::Vector3f new_velocity_n_vector;
@@ -523,8 +531,8 @@ void Deformable3D::HandleCollision(Node& a_node){
                         friction_ness = (1 - prev_momentom_v.normalized().dot(m_Direction))*0.5 + FRICTION_OFFSET;
                     }
                     */
-                    
-                    
+                    /*
+
                     if(prev_momentom_v.normalized().dot(m_Direction)<0.0){
                         friction_ness = FRICTION_OFFSET;
                     }else if(prev_momentom_v.normalized().dot(m_Direction)==0.0){
@@ -533,8 +541,10 @@ void Deformable3D::HandleCollision(Node& a_node){
                     else{
                         friction_ness = 0.30*FRICTION_OFFSET;
                     }
+                     */
                     
-                        
+                   friction_ness = (1-prev_momentom_v.normalized().dot(m_Direction.normalized())) * FRICTION_OFFSET + 0.1;
+
 					new_velocity_n_vector = prev_momentom_v.normalized();
 
 					new_momentom_n = -rebouce_ness* prev_momentom_n;
