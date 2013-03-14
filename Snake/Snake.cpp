@@ -7,7 +7,7 @@
 //
 
 #include "Snake.h"
-#define INITIAL_POS_X 10.0
+#define INITIAL_POS_X 0.0
 #define INITIAL_POS_Y 3.0
 #define INITIAL_Y_OFFSET 20
 #include <iostream>
