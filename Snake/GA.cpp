@@ -50,7 +50,7 @@ void GA::writeBest(){
         myfile <<"best Genome" <<"\n";
         for (int i=0; i<GENOME_NUM; i++) {
             
-            myfile << bestDriver->get_genome().get_genomeData(i) <<", ";
+            myfile << bestGenome.get_genomeData(i) <<", ";
         }
         myfile << "\n";
         
@@ -121,6 +121,7 @@ void GA::changeDrivers()
             bestDriver = seats[i];
             bestGeneration = seats[i]->get_generation();
             bestRun = runCount;
+            bestGenome = seats[i]->get_genome();
         
             cout<<"new Best Distance:" <<bestDistance<<endl;
             cout<<"new Best Driver: Monkey #"<<bestDriver->get_number()<<endl;

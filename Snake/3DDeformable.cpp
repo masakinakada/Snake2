@@ -13,7 +13,7 @@
 #include "Object.h"
 #include "Terrain.h"
 
-#define FRICTION_OFFSET 2.0
+#define FRICTION_OFFSET 0.8
 
 typedef std::queue<Node*> NodeQueue;
 
@@ -500,7 +500,7 @@ void Deformable3D::UpdateForce(){
 void Deformable3D::HandleCollision(Node& a_node){
 
 	Terrain* terrain;
-    m_Direction = (m_Bone1->m_Center - m_Bone2->m_Center);
+    //m_Direction = (m_Bone1->m_Center - m_Bone2->m_Center);
     //std::cout<<m_Direction <<std::endl;
    Eigen::Vector3f material_point = a_node.m_Position;
 	Eigen::Vector3f surface_normal;
@@ -542,8 +542,15 @@ void Deformable3D::HandleCollision(Node& a_node){
                         friction_ness = 0.30*FRICTION_OFFSET;
                     }
                      */
+                    if(prev_momentom_v.normalized().dot(m_Direction)<0.0){
+                        friction_ness = (1-prev_momentom_v.normalized().dot(m_Direction.normalized())) * FRICTION_OFFSET + 0.4;
+
+                    }else{
+                        friction_ness = 0.4;
+                    }
+
                     
-                   friction_ness = (1-prev_momentom_v.normalized().dot(m_Direction.normalized())) * FRICTION_OFFSET + 0.1;
+                   friction_ness = (1-prev_momentom_v.normalized().dot(m_Direction.normalized())) * FRICTION_OFFSET + 0.4;
 
 					new_velocity_n_vector = prev_momentom_v.normalized();
 

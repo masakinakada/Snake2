@@ -57,16 +57,25 @@ void Genome::genomeGeneration(int i)
             //45 degree is the one cicle. 0-1 with sin function. adjacent one is one phase different at most, and should have same phase most of the time.
             //adjacent ones cannot have the differnece more than one phase to make the periodic pattern
             // new change: at leaset two of the adjacent ones are in the same phase
-            genomeData[i] = fRand(0.0, M_PI/6);
+            genomeData[i] = fRand(0.0, M_PI/4);
             break;
         case 2:
             genomeData[i] = fRand(0, 2*M_PI);
             break;
+            //this conmbination is proved to work well
+            /*
         case 3:
-            genomeData[i] = fRand(1.5, 2.0);
+            genomeData[i] = fRand(1.5, 1.9);
             break;
         case 4:
-            genomeData[i] = fRand(2.0, 2.5);
+            genomeData[i] = fRand(2.0, 2.4);
+            break;
+           */ 
+        case 3:
+            genomeData[i] = fRand(1.0, 1.9);
+            break;
+        case 4:
+            genomeData[i] = fRand(1.5, 2.4);
             break;
         default:
             break;
@@ -112,7 +121,7 @@ void Genome::mutate(int num, int generation)
 int Genome::calculate_torqueH(int k, float time)
 {
     float sin_value = 2*(sin(genomeData[0] * time+ k * genomeData[1]));
-    //float sin_value = 2*(sin(7.36899 * time + k * 0.143914));
+    //float sin_value = 2*(sin(5.57416 * time + k * 0.258493));
     if(sin_value>sqrt(2)){
         return 2;
     }
@@ -128,7 +137,7 @@ int Genome::calculate_torqueH(int k, float time)
 int Genome::calculate_torqueV(int k, float time)
 {
     float sin_value = 2*(sin(genomeData[0] * time+ k * genomeData[1] + genomeData[2]));
-    //float sin_value = 2*(sin(7.36899 * time + k * 0.143914 + 5.94878));
+   // float sin_value = 2*(sin(5.57416 * time + k * 0.258493 + 3.26893));
     
     if(sin_value>sqrt(2)){
         return 2;

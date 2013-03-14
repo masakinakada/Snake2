@@ -45,6 +45,7 @@ private:
     int bestGeneration;
     int bestRun;
     int runCount;
+    Genome bestGenome;
 
 };
 

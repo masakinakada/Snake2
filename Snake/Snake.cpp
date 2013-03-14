@@ -7,7 +7,8 @@
 //
 
 #include "Snake.h"
-#define INITIAL_POS 10.0
+#define INITIAL_POS_X 10.0
+#define INITIAL_POS_Y 3.0
 #define INITIAL_Y_OFFSET 20
 #include <iostream>
 
@@ -73,8 +74,8 @@ Snake::Snake(int a_num_seg, int snake_num)
 {
 	m_num_segment = a_num_seg;
 
-    curPos = Eigen::Vector3f(0.0,INITIAL_POS,0.0);
-    prePos = Eigen::Vector3f(0.0,INITIAL_POS,0.0);
+    curPos = Eigen::Vector3f(INITIAL_POS_X,INITIAL_POS_Y,0.0);
+    prePos = Eigen::Vector3f(INITIAL_POS_X,INITIAL_POS_Y,0.0);
 
 	init(snake_num);
     
@@ -101,6 +102,8 @@ void Snake::SetWorld(World* a_world){
 
 void Snake::set_joint_velocity(int muscle_num, int horizontal_torque, int verticle_torque, float dt, float alpha1, float alpha2)
 {
+    //alpha1 = 1.36059;
+    //alpha2 = 2.07797;
     m_muscles[muscle_num].muscleController(horizontal_torque, verticle_torque, dt, alpha1, alpha2, 0);
     
 }
@@ -131,7 +134,7 @@ void Snake::initPhysics(int snake_num){
 	std::vector<Node*> temp_nodes;
 
 	//create the head bone
-	m_bones[0].Init(1.0, Eigen::Vector3f(0,INITIAL_POS,snake_num*INITIAL_Y_OFFSET), rigid_size, Eigen::Vector3f(1,0,0));
+	m_bones[0].Init(1.0, Eigen::Vector3f(INITIAL_POS_X,INITIAL_POS_Y,snake_num*INITIAL_Y_OFFSET), rigid_size, Eigen::Vector3f(1,0,0));
     
     float density = 1.0;
 
@@ -169,7 +172,7 @@ void Snake::Reinit(int snake_num){
 	std::vector<Node*> temp_nodes;
 
 	//create the head bone
-	m_bones[0].Reinit(Eigen::Vector3f(0,INITIAL_POS,snake_num*INITIAL_Y_OFFSET));
+	m_bones[0].Reinit(Eigen::Vector3f(INITIAL_POS_X,INITIAL_POS_Y,snake_num*INITIAL_Y_OFFSET));
 
 	for(int i = 0; i < m_num_segment - 1; i++)
 	{
@@ -207,7 +210,7 @@ float Snake::getDistance(int segment_ID)
     for (int i=0; i<m_num_segment; i++) {
         
         //snake is moving toward negative x axis. there is direcional friction so should not chnage. or change both here and direction of friction
-        distance += -(m_bones[i].m_Center[0]);
+        distance += -(m_bones[i].m_Center[0] - INITIAL_POS_X);
         distance += (m_bones[i].m_Center[2]-segment_ID*INITIAL_Y_OFFSET);
     }
     distance = distance/m_num_segment+original_pos;
