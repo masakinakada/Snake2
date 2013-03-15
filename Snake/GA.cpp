@@ -130,7 +130,7 @@ void GA::changeDrivers()
         }
         
         //termination condition. if they move more than 300. we stop the simulation and return the best individual
-        if(seats[i]->get_distance()>100){
+        if(seats[i]->get_distance()>70){
             writeBest();
             exit(0);
         }
