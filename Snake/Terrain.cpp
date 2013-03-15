@@ -151,8 +151,8 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
 			m_height_data[i] = hill_height_max*(m_height_data[i] - temp_smallest)/temp_largest;
 		}
         
-        //set n_hill = 20000
-	}else if(a_type == TERRAIN_DEBRIS_SMALL){
+        //set n_hill = 9000 res = 200
+	}else if(a_type == TERRAIN_ROUGH_SMALL){
 		double hill_height_max = 10;
 		double hill_center_x, hill_center_z, hill_height, hill_narrowness_x, hill_narrowness_z;
 		double dev_x, dev_z;
@@ -162,8 +162,8 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
 			hill_center_x = (Util::getRand()-0.5)*a_size_x;
 			hill_center_z = (Util::getRand()-0.5)*a_size_z;
 			hill_height = Util::getRand()*(hill_height_max - 5) + 5;
-			hill_narrowness_x = Util::getRand()*5 + 3; //1~6
-			hill_narrowness_z = Util::getRand()*5 + 3; //1~6
+			hill_narrowness_x = Util::getRand()*3 + 2; //1~6
+			hill_narrowness_z = Util::getRand()*3 + 2; //1~6
             
 			//add the hill to current height map
 			for(int ix = 0; ix < (a_res_x+1); ix++)
@@ -191,10 +191,44 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
 			//eventually the range would be from 0~m_hill_height_max
 			m_height_data[i] = hill_height_max*(m_height_data[i] - temp_smallest)/temp_largest;
 		}
+	}else if(a_type == TERRAIN_DEBRIS_SMALL){
+		double hill_height_max = 10;
+		double hill_center_x, hill_center_z, hill_height, hill_narrowness_x, hill_narrowness_z;
+		double dev_x, dev_z;
         
+		for(int i = 0; i < n_hill; i++){
+            
+			hill_center_x = (Util::getRand()-0.5)*a_size_x;
+			hill_center_z = (Util::getRand()-0.5)*a_size_z;
+			hill_height = Util::getRand()*(hill_height_max - 5) + 5;
+			hill_narrowness_x = Util::getRand()*3 + 2; //1~6
+			hill_narrowness_z = Util::getRand()*3 + 2; //1~6
+            
+			//add the hill to current height map
+			for(int ix = 0; ix < (a_res_x+1); ix++)
+				for(int iz = 0; iz < (a_res_z+1); iz++){
+					m_height_data[ix*(a_res_z+1) + iz] = //boxes
+                    hill_height;
+				}
+		}
         
-	}
-
+		//normalize
+		double temp_largest = m_height_data[0];
+		double temp_smallest = m_height_data[0];
+		for(int i = 0; i < (a_res_x+1)*(a_res_z+1); i++)
+		{
+			if(m_height_data[i] > temp_largest)
+				temp_largest = m_height_data[i];
+			if(m_height_data[i] < temp_smallest)
+				temp_smallest = m_height_data[i];
+		}
+        
+		for(int i = 0; i < (a_res_x+1)*(a_res_z+1); i++)
+		{
+			//eventually the range would be from 0~m_hill_height_max
+			m_height_data[i] = hill_height_max*(m_height_data[i] - temp_smallest)/temp_largest;
+		}
+    }
 	GenerateNormals();
 	
 }
