@@ -205,8 +205,9 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
         for(int ix = 0; ix < (a_res_x+1); ix++)
             for(int iz = 0; iz < (a_res_z+1); iz++){
                 if(iz==a_res_z/2-2||iz==a_res_z/2+2){
-                    m_height_data[ix*(a_res_z+1) + iz] = 18;
-                }else if(iz==a_res_z/2+12||iz==a_res_z/2+7){
+                    m_height_data[ix*(a_res_z+1) + iz] = 10;
+                }
+                else if(iz==a_res_z/2+12||iz==a_res_z/2+8){
                     m_height_data[ix*(a_res_z+1) + iz] = 10;
                 }else if(iz==a_res_z/2+22||iz==a_res_z/2+18){
                     m_height_data[ix*(a_res_z+1) + iz] = 10;
