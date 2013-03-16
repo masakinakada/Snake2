@@ -191,6 +191,7 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
 			//eventually the range would be from 0~m_hill_height_max
 			m_height_data[i] = hill_height_max*(m_height_data[i] - temp_smallest)/temp_largest;
 		}
+        // res = 100;
 	}else if(a_type == TERRAIN_DEBRIS_SMALL){
         double hill_height_max = 10;
 		double hill_height;
@@ -200,6 +201,20 @@ void Terrain::InitBase(double a_size_x, double a_size_z, int a_res_x, int a_res_
                 hill_height = Util::getRand()*(hill_height_max - 5) + 5;
                 m_height_data[ix*(a_res_z+1) + iz] = hill_height;
             }
+    }else if(a_type == TERRAIN_WALL){
+        for(int ix = 0; ix < (a_res_x+1); ix++)
+            for(int iz = 0; iz < (a_res_z+1); iz++){
+                if(iz==a_res_z/2-2||iz==a_res_z/2+2){
+                    m_height_data[ix*(a_res_z+1) + iz] = 18;
+                }else if(iz==a_res_z/2+12||iz==a_res_z/2+7){
+                    m_height_data[ix*(a_res_z+1) + iz] = 10;
+                }else if(iz==a_res_z/2+22||iz==a_res_z/2+18){
+                    m_height_data[ix*(a_res_z+1) + iz] = 10;
+                }else if(iz==a_res_z/2+32||iz==a_res_z/2+28){
+                    m_height_data[ix*(a_res_z+1) + iz] = 10;
+                }
+            }
+                
     }
 	GenerateNormals();
 	
